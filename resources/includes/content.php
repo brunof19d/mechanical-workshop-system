@@ -8,7 +8,7 @@
         <?php date_default_timezone_set('Europe/Lisbon'); ?>
         <?= date('d-m-Y' . ' - ' . 'H:i A') ?>
     </p>
-    <a class="btn btn-danger btn-sm mr-3"> Logout </a>
+    <a class="btn btn-danger btn-sm mr-3" href="/logout">Logout</a>
 </header>
 
 <div class="container-fluid">
