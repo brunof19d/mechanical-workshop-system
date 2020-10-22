@@ -1,0 +1,24 @@
+{
+  "name": "brunodadario/mechanicworkshop",
+  "description": "Sistema para oficina mecanica voltado para motocicletas, sistema feito para uma oficina localizada em São Paulo - SP.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "brunof19d",
+      "email": "brunof19d@gmail.com",
+      "homepage": "https://github.com/brunof19d",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"App\\": "src/"}
+  },
+  "require": {
+    "php": "^7.4",
+    "ext-pdo": "*",
+    "psr/http-message": "^1.0",
+    "psr/http-server-handler": "^1.0",
+    "nyholm/psr7-server": "^1.0",
+    "nyholm/psr7": "^1.3"
+  }
+}

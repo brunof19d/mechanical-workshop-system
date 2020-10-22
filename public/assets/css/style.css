@@ -1,0 +1,82 @@
+/* Tags */
+header {
+    height: 70px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+footer {
+    color: white;
+    text-align: center;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Class */
+
+.login {
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    margin-top: 50px;
+    padding: 50px;
+}
+
+.btn-default {
+    background-color: lightsteelblue;
+    border-radius: 30px;
+}
+
+.name-menu {
+    font-family: "Comic Sans MS", sans-serif;
+    font-size:  20px;
+    font-weight: 100;
+    color: lightblue;
+}
+
+.form-content {
+    border-radius: 30px;
+}
+
+.span-required {
+    color: red;
+}
+
+.nav-link:hover {
+    background-color: #1b1e21;
+    border-radius: 15px;
+}
+
+.arrow {
+    border: solid cornflowerblue;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.alert {
+    border-radius: 30px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: lightblue;
+}
+
+/* Responsive */
+@media only screen and (max-width: 700px) {
+    header {
+        display: block;
+        text-align: center;
+        height: auto;
+    }
+}
