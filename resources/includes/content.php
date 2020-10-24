@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse sidebar w-100">
                     <ul class="flex-column navbar-nav justify-content-between w-100">
 
-                        <!-- Clientes Menu -->
+                        <!-- Order of service menu -->
                         <li class="nav-item">
                             <a class="nav-link" href="#m1" data-parent="#navbar1" data-toggle="collapse"
                                data-target="#m1" aria-expanded="false">
@@ -33,8 +33,22 @@
                             </a>
                             <div class="collapse ml-5" id="m1">
                                 <ul class="flex-column nav">
+                                    <a class="nav-link" href="/table-client">Buscar</a>
+                                    <a class="nav-link" href="/new-order">Adicionar</a>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Order of service menu -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#m1" data-parent="#navbar1" data-toggle="collapse"
+                               data-target="#m1" aria-expanded="false">
+                                <i class="ml-1 arrow right"></i><span class="ml-2">Ordem de serviço</span>
+                            </a>
+                            <div class="collapse ml-5" id="m1">
+                                <ul class="flex-column nav">
                                     <a class="nav-link" href="#">Buscar</a>
-                                    <a class="nav-link" href="/add-client">Adicionar</a>
+                                    <a class="nav-link" href="/verify-client">Adicionar</a>
                                 </ul>
                             </div>
                         </li>

@@ -10,9 +10,13 @@ return [
     // Templates Section
     '/dashboard'    => \App\View\Dashboard::class,
 
-    // Client Section
-    '/add-client'   => \App\View\Client\AddClientView::class,
-    '/save-client'  => \App\Controller\Client\ControllerClient::class
+    // Order of service section
+    '/new-order'   => \App\View\OrderService\NewOrderService::class,
+    '/save-order'  => \App\Controller\OrderService\ControllerOrderService::class,
 
+    // Client section
+    '/single-client'    => \App\View\Client\SingleClient::class,
+    '/table-client'     => \App\View\Client\TableClients::class,
+    '/verify-client'    => \App\View\Client\VerifyClient::class
 
 ];

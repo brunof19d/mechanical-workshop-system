@@ -44,6 +44,7 @@ $serverRequest = $creator->fromGlobals();
 
 $classControl = $routes[$pathInfo];
 $control = new $classControl();
+
 $received = $control->handle($serverRequest);
 
 foreach ($received->getHeaders() as $name => $values) {
