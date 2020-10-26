@@ -2,6 +2,8 @@
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 require __DIR__ . '/../config/config.php';
 
@@ -43,7 +45,10 @@ $serverRequest = $creator->fromGlobals();
 /* End code Nyholm */
 
 $classControl = $routes[$pathInfo];
-$control = new $classControl();
+/** @var ContainerInterface $container */
+$container = require __DIR__ . '/../config/dependencies.php';
+/** @var RequestHandlerInterface $control */
+$control = $container->get($classControl);
 
 $received = $control->handle($serverRequest);
 
