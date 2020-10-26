@@ -4,23 +4,36 @@
 namespace App\Entity\Client;
 
 
+use App\Helper\ValidCnpj;
+use App\Helper\ValidCpf;
+use Exception;
+
 class Client
 {
     private string $firstName;
     private string $lastName;
-    private string $cpfOrcnpj;
+    private string $identification;
     private string $phoneOne;
     private ?string $phoneTwo = null;
     private ?string $email = null;
 
-    public function getCpfOrcnpj(): string
+    public function getIdentification(): string
     {
-        return $this->cpfOrcnpj;
+        return $this->identification;
     }
 
-    public function setCpfOrcnpj(string $cpfOrcnpj): void
+    public function setIdentification(string $identification): void
     {
-        $this->cpfOrcnpj = $cpfOrcnpj;
+        $validateCnpj = new ValidCnpj();
+        $validateCpf = new ValidCpf();
+        if (strlen($identification) === 18) {
+            if (!$validateCnpj->verify($identification)) throw new Exception('Número de CNPJ invalido');
+        } elseif (strlen($identification) === 14) {
+            if (!$validateCpf->verify($identification)) throw new Exception('Número de CPF invalido');
+        } else {
+            throw new Exception('Campo CPF / CNPJ invalido');
+        }
+        $this->identification = $identification;
     }
 
     public function getFirstName(): string

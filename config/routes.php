@@ -11,12 +11,15 @@ return [
     '/dashboard'    => \App\View\Dashboard::class,
 
     // Order of service section
-    '/new-order'   => \App\View\OrderService\NewOrderService::class,
-    '/save-order'  => \App\Controller\OrderService\ControllerOrderService::class,
+    '/new-client'   => \App\View\Client\NewClient::class,
+    '/save-client'  => \App\Controller\Client\ControllerClient::class,
 
     // Client section
     '/single-client'    => \App\View\Client\SingleClient::class,
     '/table-client'     => \App\View\Client\TableClients::class,
-    '/verify-client'    => \App\View\Client\VerifyClient::class
+    '/verify-client'    => \App\View\Client\VerifyClient::class,
+
+    // Motorcycle section
+    '/new-motorcycle' => \App\View\Motorcycle\NewMotorcycle::class
 
 ];

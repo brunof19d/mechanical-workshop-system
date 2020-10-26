@@ -37,7 +37,7 @@ class ClientRepository implements ClientRepositoryInterface
         ";
         $statement = $this->pdo->prepare($sql);
         $statement->execute([
-            ':CPF_CNPJ'         => $client->getCpfOrcnpj(),
+            ':CPF_CNPJ'         => $client->getIdentification(),
             ':firstname_client' => $client->getFirstName(),
             ':lastname_client'  => $client->getLastName(),
             ':phone_one'        => $client->getPhoneOne(),

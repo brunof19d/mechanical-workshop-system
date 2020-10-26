@@ -4,14 +4,14 @@
 namespace App\Helper;
 
 
-class ValidCnjpj
+class ValidCnpj
 {
     public function verify(string $cnpj): bool
     {
-        if (!ValidCnjpj::isCnpj($cnpj)) return false;
-        $cnpjNumber = ValidCnjpj::removeFormat($cnpj);
-        if (!ValidCnjpj::verifyNumberEqual($cnpjNumber)) return false;
-        if (!ValidCnjpj::validateDigits($cnpjNumber)) return false;
+        if (!ValidCnpj::isCnpj($cnpj)) return false;
+        $cnpjNumber = ValidCnpj::removeFormat($cnpj);
+        if (!ValidCnpj::verifyNumberEqual($cnpjNumber)) return false;
+        if (!ValidCnpj::validateDigits($cnpjNumber)) return false;
         return true;
     }
 

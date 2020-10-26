@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\View\OrderService;
+namespace App\View\Motorcycle;
 
 
 use App\Helper\RenderHtml;
@@ -9,14 +9,14 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class NewOrderService
+class NewMotorcycle
 {
     use RenderHtml;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $template = $this->render('order-service/new-order-service.php', [
-            'title' => 'Adicionar ordem de serviço'
+        $template = $this->render('motorcycle/new-motorcycle.php', [
+            'title' => 'Adicionar motocicleta'
         ]);
         return new Response(200, [], $template);
     }

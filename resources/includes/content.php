@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse sidebar w-100">
                     <ul class="flex-column navbar-nav justify-content-between w-100">
 
-                        <!-- Order of service menu -->
+                        <!-- Client -->
                         <li class="nav-item">
                             <a class="nav-link" href="#m1" data-parent="#navbar1" data-toggle="collapse"
                                data-target="#m1" aria-expanded="false">
@@ -34,18 +34,32 @@
                             <div class="collapse ml-5" id="m1">
                                 <ul class="flex-column nav">
                                     <a class="nav-link" href="/table-client">Buscar</a>
-                                    <a class="nav-link" href="/new-order">Adicionar</a>
+                                    <a class="nav-link" href="/new-client">Adicionar</a>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Motorcycle -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#m2" data-parent="#navbar2" data-toggle="collapse"
+                               data-target="#m2" aria-expanded="false">
+                                <i class="ml-1 arrow right"></i><span class="ml-2">Motos</span>
+                            </a>
+                            <div class="collapse ml-5" id="m2">
+                                <ul class="flex-column nav">
+                                    <a class="nav-link" href="">Buscar</a>
+                                    <a class="nav-link" href="/new-motorcycle">Adicionar</a>
                                 </ul>
                             </div>
                         </li>
 
                         <!-- Order of service menu -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#m1" data-parent="#navbar1" data-toggle="collapse"
-                               data-target="#m1" aria-expanded="false">
+                            <a class="nav-link" href="#m3" data-parent="#navbar3" data-toggle="collapse"
+                               data-target="#m3" aria-expanded="false">
                                 <i class="ml-1 arrow right"></i><span class="ml-2">Ordem de serviço</span>
                             </a>
-                            <div class="collapse ml-5" id="m1">
+                            <div class="collapse ml-5" id="m3">
                                 <ul class="flex-column nav">
                                     <a class="nav-link" href="#">Buscar</a>
                                     <a class="nav-link" href="/verify-client">Adicionar</a>
@@ -67,19 +81,6 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="#"><span class="ml-2">Financeiro</span></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#m1" data-parent="#navbar1" data-toggle="collapse"
-                               data-target="#m1" aria-expanded="false">
-                                <i class="ml-1 arrow right"></i><span class="ml-2"> Link</span>
-                            </a>
-                            <div class="collapse ml-5" id="m1">
-                                <ul class="flex-column nav">
-                                    <a class="nav-link" href="#">Link</a>
-                                    <a class="nav-link" href="#">Link</a>
-                                </ul>
-                            </div>
                         </li>
 
                     </ul>
