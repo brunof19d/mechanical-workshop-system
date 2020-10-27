@@ -4,6 +4,7 @@
 namespace App\Controller\Client;
 
 
+use App\Entity\Address\Address;
 use App\Entity\Client\Client;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
@@ -23,12 +24,14 @@ class ControllerClient implements RequestHandlerInterface
     private ClientRepository $repository;
     private FilterSanitize $sanitize;
     private VerifyDataset $verifyDataset;
+    private Address $address;
 
-    public function __construct(Client $client, ClientRepository $repository, FilterSanitize $sanitize, VerifyDataset $dataset)
+    public function __construct(Client $client, ClientRepository $repository, FilterSanitize $sanitize, Address $address, VerifyDataset $dataset)
     {
         $this->client = $client;
         $this->repository = $repository;
         $this->sanitize = $sanitize;
+        $this->address = $address;
         $this->verifyDataset = $dataset;
     }
 
@@ -66,8 +69,37 @@ class ControllerClient implements RequestHandlerInterface
             $email = $this->sanitize->email($data['email'], 'Campo E-mail invalido');
             $this->client->setEmail($email);
 
-            $this->repository->createClient($this->client);
-            return new Response(200, ['Location' => '/dashboard']);
+            /* CEP */
+            $cep = $this->sanitize->string($data['cep'], 'Campo CEP invalido');
+            $cepFormat = $this->verifyDataset->formatCep($cep);
+            $this->address->setCep($cepFormat);
+
+            /* Address */
+            $address = $this->sanitize->string($data['endereco'], 'Campo invalido');
+            $this->address->setAddress($address);
+
+            /* Number Address */
+            $numberAddress = $this->sanitize->int($data['numero'], 'Campo número invalido');
+            $this->address->setNumberAddress($numberAddress);
+
+            /* Complement Address */
+            $complement = $data['complemento'];
+            if (!empty($complement)) {
+                $complement = $this->sanitize->string($data['complemento'], 'Campo Complemento invalido');
+            }
+            $this->address->setComplementAddress($complement);
+
+            /* City */
+            $city = $this->sanitize->string($data['cidade'], 'Campo Cidade invalido');
+            $this->address->setCity($city);
+
+            /* State */
+            $state = $this->sanitize->string($data['uf'], 'Campo UF invalido');
+            $this->address->setState($state);
+
+            $this->repository->createClient($this->client, $this->address);
+
+            return new Response(200, ['Location' => '/table-client']);
 
         } catch (Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
