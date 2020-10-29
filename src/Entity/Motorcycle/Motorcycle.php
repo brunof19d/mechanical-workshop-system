@@ -4,12 +4,14 @@
 namespace App\Entity\Motorcycle;
 
 
+use App\Entity\Client\Client;
+
 class Motorcycle
 {
     private string $licensePlate;
     private string $brand;
     private string $model;
-    private string $kmMotorcycle;
+    private float $kmMotorcycle;
     private int $engine;
     private int $manufactureYear;
     private int $modelYear;
@@ -46,12 +48,12 @@ class Motorcycle
         $this->model = $model;
     }
 
-    public function getKmMotorcycle(): string
+    public function getKmMotorcycle(): float
     {
         return $this->kmMotorcycle;
     }
 
-    public function setKmMotorcycle(string $kmMotorcycle): void
+    public function setKmMotorcycle(float $kmMotorcycle): void
     {
         $this->kmMotorcycle = $kmMotorcycle;
     }
@@ -105,7 +107,6 @@ class Motorcycle
     {
         $this->description = $description;
     }
-
 
 
 }

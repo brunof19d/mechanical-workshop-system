@@ -4,9 +4,13 @@
 namespace App\Controller\Motorcycle;
 
 
-use App\Entity\Address\Address;
+use App\Entity\Client\Client;
+use App\Entity\Motorcycle\Motorcycle;
 use App\Helper\FilterSanitize;
-use App\Helper\VerifyDataset;
+use App\Helper\FlashMessage;
+use App\Repository\MotorcycleRepository;
+use Exception;
+use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -14,42 +18,65 @@ use Psr\Http\Server\RequestHandlerInterface;
 class ControllerMotorcycle implements RequestHandlerInterface
 
 {
-    private Address $address;
-    private FilterSanitize $sanitize;
-    private VerifyDataset $verifyDataset;
+    use FlashMessage;
 
-    public function __construct()
+    private Motorcycle $motorcycle;
+    private Client $client;
+    private FilterSanitize $sanitize;
+    private MotorcycleRepository $motorcycleRepository;
+
+    public function __construct(Motorcycle $motorcycle, Client $client, FilterSanitize $sanitize, MotorcycleRepository $motorcycleRepository)
     {
-        $this->address = new Address();
-        $this->sanitize = new FilterSanitize();
-        $this->verifyDataset = new VerifyDataset();
+        $this->motorcycle = $motorcycle;
+        $this->motorcycleRepository = $motorcycleRepository;
+        $this->client = $client;
+        $this->sanitize = $sanitize;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        /* CEP */
-        $cep = $this->sanitize->string($request->getParsedBody()['cep'], 'Campo CEP invalido');
-        $cepFormat = $this->verifyDataset->formatCep($cep);
-        $this->address->setCep($cepFormat);
+        try {
+            $data = $request->getParsedBody();
+            // License Plate
+            $licensePlate = $this->sanitize->string($data['licensePlate'], 'Emplacamento invalido');
+            $this->motorcycle->setLicensePlate(strtoupper($licensePlate));
 
-        /* Address */
-        $address = $this->sanitize->string($request->getParsedBody()['endereco'], 'Campo invalido');
-        $this->address->setAddress($address);
+            // Brand motorcycle
+            $brand = $this->sanitize->string($data['brandMotorcycle'], 'Marca da moto invalida');
+            $this->motorcycle->setBrand($brand);
 
-        /* Number Address */
-        $numberAddress = $this->sanitize->int($request->getParsedBody()['numero'], 'Campo número invalido');
-        $this->address->setNumberAddress($numberAddress);
+            // Model motorcycle
+            $model = $this->sanitize->string($data['modelMotorcycle'], 'Modelo da moto invalido');
+            $this->motorcycle->setModel($model);
 
-        /* Complement Address */
-        $complement = $this->sanitize->string($request->getParsedBody()['complemento'], 'Campo Complemento invalido');
-        $this->address->setComplementAddress($complement);
+            // Engine Capacity
+            $engine = $this->sanitize->int($data['engineMotorcycle'], 'Cilindrada invalida');
+            $this->motorcycle->setEngine($engine);
 
-        /* City */
-        $city = $this->sanitize->string($request->getParsedBody()['cidade'], 'Campo Cidade invalido');
-        $this->address->setCity($city);
+            // Kilometer
+            $km = filter_var($data['kmMotorcycle'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $this->motorcycle->setKmMotorcycle($km);
 
-        /* State */
-        $state = $this->sanitize->string($request->getParsedBody()['uf'], 'Campo UF invalido');
-        $this->address->setState($state);
+            // Manufacture Year
+            $manufactureYear = $this->sanitize->int($data['yearMotorcycle'], 'Ano de fabricação invalido');
+            $this->motorcycle->setManufactureYear($manufactureYear);
+
+            // Model Year
+            $modelYear = $this->sanitize->int($data['yearMotorcycle'], 'Ano de modelo invalido');
+            $this->motorcycle->setModelYear($modelYear);
+
+            // ID Client
+            $idClient = $this->sanitize->int($data['idClient'], 'ID Invalido');
+            $this->client->setId($idClient);
+
+            $this->motorcycleRepository->createMotorcycle($this->motorcycle, $this->client);
+            $this->alertMessage('success', 'Motocicleta adicionada com sucesso');
+
+            return new Response(200, ['Location' => "/motorcycle-client?id=$idClient"]);
+        } catch (Exception $error) {
+            echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
+            $id = $_POST['idClient'];
+            return new Response(302, ['Location' => "/new-motorcycle?id=$id"]);
+        }
     }
 }
