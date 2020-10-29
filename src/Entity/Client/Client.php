@@ -10,12 +10,23 @@ use Exception;
 
 class Client
 {
+    private int $id;
     private string $firstName;
-    private string $lastName;
+    private ?string $lastName = null;
     private string $identification;
     private string $phoneOne;
     private ?string $phoneTwo = null;
     private ?string $email = null;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getIdentification(): string
     {
@@ -24,15 +35,15 @@ class Client
 
     public function setIdentification(string $identification): void
     {
-        $validateCnpj = new ValidCnpj();
-        $validateCpf = new ValidCpf();
-        if (strlen($identification) === 18) {
-            if (!$validateCnpj->verify($identification)) throw new Exception('Número de CNPJ invalido');
-        } elseif (strlen($identification) === 14) {
-            if (!$validateCpf->verify($identification)) throw new Exception('Número de CPF invalido');
-        } else {
-            throw new Exception('Campo CPF / CNPJ invalido');
-        }
+//        $validateCnpj = new ValidCnpj();
+//        $validateCpf = new ValidCpf();
+//        if (strlen($identification) === 18) {
+//            if (!$validateCnpj->verify($identification)) throw new Exception('Número de CNPJ invalido');
+//        } elseif (strlen($identification) === 14) {
+//            if (!$validateCpf->verify($identification)) throw new Exception('Número de CPF invalido');
+//        } else {
+//            throw new Exception('Campo CPF / CNPJ invalido');
+//        }
         $this->identification = $identification;
     }
 

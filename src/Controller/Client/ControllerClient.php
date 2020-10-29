@@ -97,10 +97,13 @@ class ControllerClient implements RequestHandlerInterface
             $state = $this->sanitize->string($data['uf'], 'Campo UF invalido');
             $this->address->setState($state);
 
+            if (isset($_POST['update'])) {
+                $this->repository->updateClient($this->client, $this->address);
+                return new Response(200, ['Location' => '/table-client']);
+            }
+
             $this->repository->createClient($this->client, $this->address);
-
             return new Response(200, ['Location' => '/table-client']);
-
         } catch (Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
             return new Response(302, ['Location' => '/new-client']);

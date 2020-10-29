@@ -16,7 +16,7 @@ class VerifyClient implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $template = $this->render('client/verify-table-clients.php', [
+        $template = $this->render('client/verify-client.php', [
             'title' => 'Vericação CPF'
         ]);
         return new Response(200, [], $template);

@@ -34,21 +34,7 @@
                             <div class="collapse ml-5" id="m1">
                                 <ul class="flex-column nav">
                                     <a class="nav-link" href="/table-client">Buscar</a>
-                                    <a class="nav-link" href="/new-client">Adicionar</a>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <!-- Motorcycle -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#m2" data-parent="#navbar2" data-toggle="collapse"
-                               data-target="#m2" aria-expanded="false">
-                                <i class="ml-1 arrow right"></i><span class="ml-2">Motos</span>
-                            </a>
-                            <div class="collapse ml-5" id="m2">
-                                <ul class="flex-column nav">
-                                    <a class="nav-link" href="">Buscar</a>
-                                    <a class="nav-link" href="/new-motorcycle">Adicionar</a>
+                                    <a class="nav-link" href="/verify-client">Adicionar</a>
                                 </ul>
                             </div>
                         </li>
@@ -62,17 +48,13 @@
                             <div class="collapse ml-5" id="m3">
                                 <ul class="flex-column nav">
                                     <a class="nav-link" href="#">Buscar</a>
-                                    <a class="nav-link" href="/verify-client">Adicionar</a>
+                                    <a class="nav-link" href="/new-order-service">Adicionar</a>
                                 </ul>
                             </div>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><span class="ml-2">Serviços</span></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> <span class="ml-2">Ordens de Serviço</span></a>
+                            <a class="nav-link" href="#"><span class="ml-2">Serviços Rapidos</span></a>
                         </li>
 
                         <li class="nav-item">

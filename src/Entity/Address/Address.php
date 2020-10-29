@@ -70,6 +70,7 @@ class Address
 
     public function setState(string $state): void
     {
+        if (strlen($state) > 2) throw new \Exception('Estado invalido');
         $this->state = $state;
     }
 }

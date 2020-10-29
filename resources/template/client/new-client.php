@@ -1,6 +1,5 @@
 <?php require_once __DIR__ . '/../../includes/header.php';
 require __DIR__ . '/../../includes/content.php'; ?>
-
     <div class="border m-3 p-5 bg-light form-content">
 
         <form method="POST" action="/save-client">
@@ -13,14 +12,14 @@ require __DIR__ . '/../../includes/content.php'; ?>
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label for="cpf_cnpj">CPF / CNPJ <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="XXX.XXX.XXX-XX">
+                    <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="XXX.XXX.XXX-XX" value="<?= /** @var \App\View\Client\NewClient $cpfCnpj */ $cpfCnpj; ?>">
                 </div>
                 <div class="form-group col-md-5">
-                    <label for="inputName">Nome <span class="span-required">*</span></label>
+                    <label for="inputName">Nome / Razão Social <span class="span-required">*</span></label>
                     <input type="text" class="form-control" name="first_name" id="inputName" placeholder="Nome">
                 </div>
                 <div class="form-group col-md-5">
-                    <label for="inputLastname">Sobrenome <span class="span-required">*</span></label>
+                    <label for="inputLastname">Sobrenome</label>
                     <input type="text" class="form-control" name="last_name" id="inputLastname" placeholder="Sobrenome">
                 </div>
             </div>
@@ -48,27 +47,27 @@ require __DIR__ . '/../../includes/content.php'; ?>
 
                 <div class="form-group col-sm-2">
                     <label for="cep">CEP <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="cep" name="cep"/>
+                    <input type="text" class="form-control" id="cep" name="cep" placeholder="XX.XXX-XX">
                 </div>
 
                 <div class="form-group col-sm-4">
                     <label for="endereco">Endereço <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="endereco" name="endereco"/>
+                    <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Exemplo: Av.Paulista">
                 </div>
 
                 <div class="form-group col-sm-1">
                     <label for="numero">Número <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="numero" name="numero"/>
+                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Número">
                 </div>
 
                 <div class="form-group col-sm-2">
                     <label for="complemento">Complemento</label>
-                    <input type="text" class="form-control" id="complemento" name="complemento"/>
+                    <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Exemplo: Apto, Empresa, hotel etc.">
                 </div>
 
                 <div class="form-group col-sm-2">
                     <label for="cidade">Cidade <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="cidade" name="cidade"/>
+                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade.">
                 </div>
 
                 <div class="form-group col-sm-1">
