@@ -19,6 +19,14 @@ class MotorcycleRepository implements MotorcycleRepositoryInterface
         $this->pdo = DatabaseConnection::createConnection();
     }
 
+    public function bringMotorcycle(Motorcycle $motorcycle): array
+    {
+        $sql = "SELECT * FROM motorcycle WHERE id_motorcycle = :id_motorcycle";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':id_motorcycle' => $motorcycle->getIdMotorcycle()]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function bringClientMotorcycle(Client $client): array
     {
         $sql = "SELECT * FROM motorcycle WHERE id_client = :id_client";
@@ -46,4 +54,39 @@ class MotorcycleRepository implements MotorcycleRepositoryInterface
             ':kilometer'        => $motorcycle->getKmMotorcycle()
         ]);
     }
+
+    public function updateMotorcycle(Motorcycle $motorcycle): void
+    {
+        $sql = "
+            UPDATE motorcycle SET
+                license_plate       = :license_plate,
+                brand               = :brand,
+                model               = :model,
+                manufacture_year    = :manufacture_year,
+                model_year          = :model_year,
+                engine_capacity     = :engine_capacity,
+                kilometer           = :kilometer
+            WHERE id_motorcycle     = :id_motorcycle
+        ";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([
+            ':license_plate'    => $motorcycle->getLicensePlate(),
+            ':brand'            => $motorcycle->getBrand(),
+            ':model'            => $motorcycle->getModel(),
+            ':manufacture_year' => $motorcycle->getManufactureYear(),
+            ':model_year'       => $motorcycle->getModelYear(),
+            ':engine_capacity'  => $motorcycle->getEngine(),
+            ':kilometer'        => $motorcycle->getKmMotorcycle(),
+            ':id_motorcycle'    => $motorcycle->getIdMotorcycle()
+        ]);
+    }
+
+    public function removeMotorcycle(Motorcycle $motorcycle): void
+    {
+        $sql = "DELETE FROM motorcycle WHERE id_motorcycle = :id_motorcycle";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':id_motorcycle' => $motorcycle->getIdMotorcycle()]);
+    }
+
+
 }

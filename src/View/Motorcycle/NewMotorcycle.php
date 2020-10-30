@@ -16,7 +16,10 @@ class NewMotorcycle
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $template = $this->render('motorcycle/new-motorcycle.php', [
-            'title' => 'Adicionar motocicleta'
+            'title'             => 'Adicionar motocicleta',
+            'actionForm'        => '/save-motorcycle',
+            'attributeButton'   => 'save',
+            'button'            => 'Registrar motocicleta'
         ]);
         return new Response(200, [], $template);
     }

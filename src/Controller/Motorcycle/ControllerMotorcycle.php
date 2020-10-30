@@ -37,6 +37,7 @@ class ControllerMotorcycle implements RequestHandlerInterface
     {
         try {
             $data = $request->getParsedBody();
+
             // License Plate
             $licensePlate = $this->sanitize->string($data['licensePlate'], 'Emplacamento invalido');
             $this->motorcycle->setLicensePlate(strtoupper($licensePlate));
@@ -69,14 +70,26 @@ class ControllerMotorcycle implements RequestHandlerInterface
             $idClient = $this->sanitize->int($data['idClient'], 'ID Invalido');
             $this->client->setId($idClient);
 
-            $this->motorcycleRepository->createMotorcycle($this->motorcycle, $this->client);
-            $this->alertMessage('success', 'Motocicleta adicionada com sucesso');
+            // ID Motorcycle
+            if ($data['idMotorcycle'] !== NULL) {
+                $idMotorcycle = $this->sanitize->int($data['idMotorcycle'], 'ID Invalido');
+                $this->motorcycle->setIdMotorcycle($idMotorcycle);
+            }
+
+            if (array_key_exists('update', $data)) {
+                $this->motorcycleRepository->updateMotorcycle($this->motorcycle);
+                $this->alertMessage('success', 'Motocicleta atualizada com sucesso');
+            } elseif (array_key_exists('save', $data)) {
+                $this->motorcycleRepository->createMotorcycle($this->motorcycle, $this->client);
+                $this->alertMessage('success', 'Motocicleta adicionada com sucesso');
+            } else {
+                throw new Exception('Houston, we have a problem');
+            }
 
             return new Response(200, ['Location' => "/motorcycle-client?id=$idClient"]);
         } catch (Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
-            $id = $_POST['idClient'];
-            return new Response(302, ['Location' => "/new-motorcycle?id=$id"]);
+            return new Response(302, ['Location' => $data['url']]);
         }
     }
 }

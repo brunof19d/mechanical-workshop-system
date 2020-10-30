@@ -9,6 +9,12 @@ use App\Entity\Client\Client;
 interface MotorcycleRepositoryInterface
 {
     /**
+     * @param Motorcycle $motorcycle
+     * @return array
+     */
+    public function bringMotorcycle(Motorcycle $motorcycle): array;
+
+    /**
      * @param Client $client
      * @return array
      */
@@ -19,4 +25,14 @@ interface MotorcycleRepositoryInterface
      * @param Client $client
      */
     public function createMotorcycle(Motorcycle $motorcycle, Client $client): void;
+
+    /**
+     * @param Motorcycle $motorcycle
+     */
+    public function updateMotorcycle(Motorcycle $motorcycle): void;
+
+    /**
+     * @param Motorcycle $motorcycle
+     */
+    public function removeMotorcycle(Motorcycle $motorcycle): void;
 }

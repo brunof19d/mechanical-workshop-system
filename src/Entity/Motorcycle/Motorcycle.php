@@ -8,6 +8,7 @@ use App\Entity\Client\Client;
 
 class Motorcycle
 {
+    private int $idMotorcycle;
     private string $licensePlate;
     private string $brand;
     private string $model;
@@ -17,6 +18,16 @@ class Motorcycle
     private int $modelYear;
     private ?string $problemMotorcycle = null;
     private ?string $description = null;
+
+    public function getIdMotorcycle(): int
+    {
+        return $this->idMotorcycle;
+    }
+
+    public function setIdMotorcycle(int $idMotorcycle): void
+    {
+        $this->idMotorcycle = $idMotorcycle;
+    }
 
     public function getLicensePlate(): string
     {

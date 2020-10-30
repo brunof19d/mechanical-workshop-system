@@ -22,6 +22,8 @@ return [
     '/motorcycle-client'    => \App\View\Motorcycle\MotorcycleClient::class,
     '/new-motorcycle'       => \App\View\Motorcycle\NewMotorcycle::class,
     '/save-motorcycle'      => \App\Controller\Motorcycle\ControllerMotorcycle::class,
+    '/update-motorcycle'    => \App\View\Motorcycle\UpdateMotorcycle::class,
+    '/remove-motorcycle'    => \App\Controller\Motorcycle\RemoveMotorcycle::class,
 
     // Order of service section
     '/new-order-service'            => \App\View\OrderService\NewOrderService::class,

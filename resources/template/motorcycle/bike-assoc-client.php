@@ -24,6 +24,12 @@ require __DIR__ . '/../../includes/content.php';
                 <p style="font-size: 20px; color: red"><u>Não existe motos associadas a esse cliente.</u></p>
             <?php else: ?>
                 <?php foreach ($allMotorcycle as $motorcycle): ?>
+                    <div class="d-flex justify-content-center">
+                        <a href="/update-motorcycle?id=<?= $idClient; ?>&motorcycle=<?= $motorcycle['id_motorcycle']; ?>"
+                           class="btn btn-info mr-2">Atualizar dados</a>
+                        <a href="/remove-motorcycle?id=<?= $idClient; ?>&motorcycle=<?= $motorcycle['id_motorcycle']; ?>"
+                           class="btn btn-danger ml-2">Remover motocicleta</a>
+                    </div>
                     <p><strong class="mr-2">Emplacamento:</strong><?= $motorcycle['license_plate']; ?></p>
                     <p><strong class="mr-2">Marca:</strong><?= $motorcycle['brand']; ?></p>
                     <p><strong class="mr-2">Modelo:</strong><?= $motorcycle['model']; ?></p>
