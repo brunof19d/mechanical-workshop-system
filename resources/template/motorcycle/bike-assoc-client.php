@@ -8,18 +8,18 @@ require __DIR__ . '/../../includes/content.php';
 
     <div class="border m-3 p-5 bg-light form-content">
 
-        <h5 class="text-center"><strong> Motocicletas associadas ao cliente: </strong></h5>
+        <h5 class="text-center"><strong> Motocicletas do cliente: </strong></h5>
 
-        <div class="d-flex justify-content-between m-3">
-            <a href="/table-client" class="btn btn-rollback btn-sm">Voltar</a>
-            <a href="/new-motorcycle?id=<?= $idClient; ?>" class="btn btn-success btn-sm">Adicionar Motocicleta</a>
+        <div class="d-flex justify-content-center align-items-center m-3">
+            <a href="/table-client" class="btn btn-rollback mr-2">Voltar</a>
+            <a href="/new-motorcycle?id=<?= $idClient; ?>" class="btn btn-success ml-2">Adicionar Motocicleta</a>
         </div>
 
         <?php require_once __DIR__ . '/../../includes/alert-message.php'; ?>
 
         <hr>
 
-        <div id="loop-hr">
+        <div id="loop-hr" style="font-size: 20px">
             <?php if (count($allMotorcycle) === 0): ?>
                 <p style="font-size: 20px; color: red"><u>Não existe motos associadas a esse cliente.</u></p>
             <?php else: ?>

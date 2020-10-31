@@ -10,6 +10,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
 
     <div class="border m-3 p-5 bg-light form-content">
         <h4 class="text-center m-4"> Dados da Motocicleta </h4>
+
         <?php require_once __DIR__ . '/../../includes/alert-message.php'; ?>
 
         <form method="POST" action="/save-motorcycle">

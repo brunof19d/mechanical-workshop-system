@@ -69,6 +69,8 @@ footer {
     -webkit-transform: rotate(-45deg);
 }
 
+
+
 .alert {
     border-radius: 30px;
     text-align: center;
@@ -76,6 +78,10 @@ footer {
 
 .alert-success {
     background-color: lightblue;
+}
+
+.invisible {
+    display: none;
 }
 
 #loop-hr hr:last-child {

@@ -17,7 +17,7 @@ $state = $client['state'];
 
     <a href="/table-client" class="btn btn-rollback">Voltar</a>
 
-    <h5 class="mb-3 text-center">Dados do cliente</h5>
+    <h5 class="mb-3 text-center"><u>Dados do cliente</u></h5>
 
     <p><strong class="mr-2">Nome:</strong><?= $client['firstname']; ?> <?= $client['lastname']; ?></p>
 
@@ -35,29 +35,6 @@ $state = $client['state'];
 
     <p><strong>Registro:</strong> Este cliente foi adicionado ao sistema em <u><?= $client['added']; ?></u></p>
 
-    <a class="btn btn-default" href="/update-client?id=<?= $client['id']; ?>">Editar</a>
-
-    <h5 class="mt-3 mb-3 text-center">Motocicletas associassadas ao cliente</h5>
-
-    <table class="table table-bordered table-striped table-responsive-xl border w-100">
-        <thead>
-        <tr>
-            <th>Emplacamento</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Ano</th>
-            <th>Detalhes</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>XXX-XXXX</td>
-            <td>Honda</td>
-            <td>CBR</td>
-            <td>2015</td>
-            <td>Ver mais</td>
-        </tr>
-        </tbody>
-    </table>
+    <a class="btn btn-default w-100" href="/update-client?id=<?= $client['id']; ?>">Editar</a>
 
 </div>
