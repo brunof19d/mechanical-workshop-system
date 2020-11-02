@@ -47,7 +47,7 @@
                             </a>
                             <div class="collapse ml-5" id="m3">
                                 <ul class="flex-column nav">
-                                    <a class="nav-link" href="#">Buscar</a>
+                                    <a class="nav-link" href="/table-order">Buscar</a>
                                     <a class="nav-link" href="/new-order-service">Adicionar</a>
                                 </ul>
                             </div>

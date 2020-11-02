@@ -27,6 +27,11 @@ return [
 
     // Order of service section
     '/new-order-service'            => \App\View\OrderService\NewOrderService::class,
-    '/description-order-service'    => \App\View\OrderService\DescriptionOrderService::class
+    '/description-order-service'    => \App\View\OrderService\DescriptionOrderService::class,
+    '/order-service'                => \App\View\OrderService\OrderService::class,
+    '/save-order-service' => \App\Controller\OrderService\ControllerOrderService::class,
+    '/order' => \App\View\OrderService\Order::class,
+    '/table-order' => \App\View\OrderService\TableOrder::class,
+    '/products-by-order' => \App\View\Products\AddProductsInOrder::class
 
 ];

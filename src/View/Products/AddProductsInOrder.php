@@ -1,43 +1,40 @@
 <?php
 
 
-namespace App\View\OrderService;
+namespace App\View\Products;
 
 
-use App\Entity\Client\Client;
+
+use App\Entity\OrderService\OrderService;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
 use App\Helper\RenderHtml;
-use App\Repository\MotorcycleRepository;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class DescriptionOrderService
+class AddProductsInOrder
 {
     use RenderHtml;
     use FlashMessage;
 
-    private MotorcycleRepository $motorcycleRepository;
+    private OrderService $order;
     private FilterSanitize $sanitize;
-    private Client $client;
 
-    public function __construct(MotorcycleRepository $motorcycleRepository, FilterSanitize $sanitize, Client $client)
+    public function __construct(OrderService $order, FilterSanitize $sanitize)
     {
-        $this->motorcycleRepository = $motorcycleRepository;
         $this->sanitize = $sanitize;
-        $this->client = $client;
+        $this->order = $order;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         try {
-            $idClient = $this->sanitize->int($_GET['id'], 'ID Invalido');
-            $this->client->setId($idClient);
+            $idOrder = $this->sanitize->int($_GET['id'], 'ID Invalido');
+            $this->order->setIdOrder($idOrder);
 
-            $template = $this->render('order-service/description-order-service.php', [
+            $template = $this->render('order-service/add-products-in-order.php', [
                 'title' => 'Nova ordem de serviço',
-                'allMotorcycle' => $this->motorcycleRepository->bringClientMotorcycle($this->client)
             ]);
             return new Response(200, [], $template);
         } catch (\Exception $error) {

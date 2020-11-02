@@ -84,16 +84,66 @@ footer {
     display: none;
 }
 
+.order-date{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.order-client {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.order-contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.order-address {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.order-motorcycle {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
 #loop-hr hr:last-child {
     display: none;
 }
 
 /* Responsive */
 @media only screen and (max-width: 700px) {
+
     header {
         display: block;
         text-align: center;
 
         height: auto;
     }
+
+    .order-date {
+        display: block;
+        text-align: center;
+    }
+
+    .order-client {
+        display: block;
+        text-align: center;
+    }
+
+    .order-contact {
+        display: block;
+    }
+
 }

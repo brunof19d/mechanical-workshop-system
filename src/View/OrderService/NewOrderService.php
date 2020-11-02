@@ -6,6 +6,7 @@ namespace App\View\OrderService;
 
 use App\Helper\RenderHtml;
 use App\Repository\ClientRepository;
+use App\Repository\MotorcycleRepository;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
