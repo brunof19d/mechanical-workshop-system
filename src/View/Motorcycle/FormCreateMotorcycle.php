@@ -9,13 +9,13 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class NewMotorcycle
+class FormCreateMotorcycle
 {
     use RenderHtml;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $template = $this->render('motorcycle/new-motorcycle.php', [
+        $template = $this->render('motorcycle/form-motorcycle.php', [
             'title'             => 'Adicionar motocicleta',
             'actionForm'        => '/save-motorcycle',
             'attributeButton'   => 'save',

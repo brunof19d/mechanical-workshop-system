@@ -1,9 +1,14 @@
 <?php
+
 require_once __DIR__ . '/../../includes/header.php';
-require __DIR__ . '/../../includes/content.php';
+require_once __DIR__ . '/../../includes/content.php';
 require_once __DIR__ . '/../../includes/alert-message.php';
 
+/** @var \App\View\OrderService\Order $allProductsOrder */
+/** @var \App\View\OrderService\Order $allPriceOrder */
+/** @var \App\Entity\Product\Product $product */
 /** @var \App\View\OrderService\Order $order */
+
 $date = new DateTimeImmutable($order['date_added']);
 
 ?>
@@ -83,17 +88,6 @@ $date = new DateTimeImmutable($order['date_added']);
 
         </div>
 
-        <?php
-
-//        print_r('<pre>');
-//        var_dump($allProductsOrder);
-//        print_r('</pre>');
-//        die();
-
-
-
-        ?>
-
         <table class="table table-responsive-sm table-sm table-striped">
             <thead>
             <tr>
@@ -106,9 +100,7 @@ $date = new DateTimeImmutable($order['date_added']);
             </tr>
             </thead>
             <tbody>
-            <?php /** @var \App\View\OrderService\Order$allProductsOrder */
-            /** @var \App\Entity\Product\Product $product */
-            foreach ($allProductsOrder as $product): ?>
+            <?php foreach ($allProductsOrder as $product): ?>
                 <tr>
                     <td><?= $product->getIdProduct(); ?></td>
                     <td><?= $product->getDescriptionProduct(); ?></td>
@@ -122,12 +114,15 @@ $date = new DateTimeImmutable($order['date_added']);
 
             <tfoot>
             <tr>
-                <td><a class="btn btn-sm btn-success" href="/products-by-order?id=<?= $order['id_order']; ?>">Adicionar
-                        item</a></td>
+                <td>
+                    <a class="btn btn-sm btn-success" href="/products-by-order?id=<?= $order['id_order']; ?>">
+                        Adicionar item
+                    </a>
+                </td>
                 <td></td>
                 <td></td>
                 <td class="bg-dark" style="color: white">Valor Total</td>
-                <td><?= $allpriceOrder; ?> </td>
+                <td><?= $allPriceOrder; ?> </td>
             </tr>
             </tfoot>
         </table>

@@ -14,7 +14,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class OrderService
+class NewOrderStepThree
 {
     use RenderHtml;
 
@@ -41,15 +41,15 @@ class OrderService
         $client = $data['idClient'];
         $this->client->setId($client);
 
-        $template = $this->render('order-service/order-service.php', [
-            'title' => 'Ordem de serviço',
-            'data' => $data,
-            'dataClient' => $this->clientRepository->bringClient($this->client),
-            'dataMotorcycle' => $this->motorcycleRepository->bringMotorcycle($this->motorcycle),
-            'problemDescription' =>  $data['problem'],
+        $template = $this->render('order-service/new-order-service-step3.php', [
+            'title'                 => 'Ordem de serviço - Passo 3',
+            'data'                  => $data,
+            'dataClient'            => $this->clientRepository->bringClient($this->client),
+            'dataMotorcycle'        => $this->motorcycleRepository->bringMotorcycle($this->motorcycle),
+            'problemDescription'    =>  $data['problem'],
             'descriptionMotorcycle' => $data['description']
         ]);
-        return new Response(200, [], $template);
 
+        return new Response(200, [], $template);
     }
 }

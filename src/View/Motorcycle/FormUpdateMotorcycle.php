@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Exception;
 
-class UpdateMotorcycle
+class FormUpdateMotorcycle
 {
     use RenderHtml;
     use FlashMessage;
@@ -36,7 +36,7 @@ class UpdateMotorcycle
             $idMotorcycle = $this->sanitize->int($_GET['motorcycle'], 'ID invalido');
             $this->motorcycle->setIdMotorcycle($idMotorcycle);
 
-            $template = $this->render('motorcycle/new-motorcycle.php', [
+            $template = $this->render('motorcycle/form-motorcycle.php', [
                 'title'             => 'Atualizar motocicleta',
                 'attributeButton'   => 'update',
                 'button'            => 'Atualizar motocicleta',

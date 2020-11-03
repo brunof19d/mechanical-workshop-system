@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/../../includes/header.php';
 require __DIR__ . '/../../includes/content.php';
-
 $currentUrl = $_SERVER['REQUEST_URI'];
-/** @var \App\View\Motorcycle\UpdateMotorcycle | \App\View\Motorcycle\NewMotorcycle $attributeButton */
-/** @var \App\View\Motorcycle\UpdateMotorcycle | \App\View\Motorcycle\NewMotorcycle $button */
+
+/** @var \App\View\Motorcycle\FormUpdateMotorcycle | \App\View\Motorcycle\FormCreateMotorcycle $attributeButton */
+/** @var \App\View\Motorcycle\FormUpdateMotorcycle | \App\View\Motorcycle\FormCreateMotorcycle $button */
 
 ?>
 
@@ -17,7 +17,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
             <div class="form-row">
                 <!-- License Plate -->
                 <div class="form-group col-md-1">
-                    <label for="licensePlate">Emplacamento<span class="span-required">*</span> </label>
+                    <label for="licensePlate">Placa<span class="span-required">*</span> </label>
                     <input type="text" class="form-control" id="licensePlate" name="licensePlate"
                            placeholder="XXX-1234" value="<?= $motorcycle['license_plate'] ?? ''; ?>">
                 </div>

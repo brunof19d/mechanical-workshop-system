@@ -35,15 +35,15 @@ class Client
 
     public function setIdentification(string $identification): void
     {
-//        $validateCnpj = new ValidCnpj();
-//        $validateCpf = new ValidCpf();
-//        if (strlen($identification) === 18) {
-//            if (!$validateCnpj->verify($identification)) throw new Exception('Número de CNPJ invalido');
-//        } elseif (strlen($identification) === 14) {
-//            if (!$validateCpf->verify($identification)) throw new Exception('Número de CPF invalido');
-//        } else {
-//            throw new Exception('Campo CPF / CNPJ invalido');
-//        }
+        $validateCnpj = new ValidCnpj();
+        $validateCpf = new ValidCpf();
+        if (strlen($identification) === 18) {
+            if (!$validateCnpj->verify($identification)) throw new Exception('Número de CNPJ invalido');
+        } elseif (strlen($identification) === 14) {
+            if (!$validateCpf->verify($identification)) throw new Exception('Número de CPF invalido');
+        } else {
+            throw new Exception('Campo CPF / CNPJ invalido');
+        }
         $this->identification = $identification;
     }
 

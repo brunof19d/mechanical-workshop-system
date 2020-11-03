@@ -13,7 +13,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class DescriptionOrderService
+class NewOrderStepTwo
 {
     use RenderHtml;
     use FlashMessage;
@@ -35,10 +35,11 @@ class DescriptionOrderService
             $idClient = $this->sanitize->int($_GET['id'], 'ID Invalido');
             $this->client->setId($idClient);
 
-            $template = $this->render('order-service/description-order-service.php', [
-                'title' => 'Nova ordem de serviço',
+            $template = $this->render('order-service/new-order-service-step2.php', [
+                'title' => 'Nova ordem de serviço - Passo 2',
                 'allMotorcycle' => $this->motorcycleRepository->bringClientMotorcycle($this->client)
             ]);
+
             return new Response(200, [], $template);
         } catch (\Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger',$error->getMessage());

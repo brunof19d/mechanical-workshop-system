@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../includes/header.php';
 require __DIR__ . '/../../includes/content.php';
 
-/** @var \App\View\OrderService\DescriptionOrderService $allMotorcycle */
+/** @var \App\View\OrderService\NewOrderStepTwo $allMotorcycle */
 
 ?>
 
@@ -10,7 +10,7 @@ require __DIR__ . '/../../includes/content.php';
 
     <h4 class="text-center m-4"> Descrição da ordem de serviço</h4>
 
-    <form method="POST" action="/order-service">
+    <form method="POST" action="/new-os-step3">
 
         <div class="form-group">
             <label>Motocicleta</label>

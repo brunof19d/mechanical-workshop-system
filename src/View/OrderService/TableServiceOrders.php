@@ -9,7 +9,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class TableOrder
+class TableServiceOrders
 {
     use RenderHtml;
 
@@ -20,15 +20,11 @@ class TableOrder
         $this->oderRepository = $oderRepository;
     }
 
-
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-
-
-
-        $template = $this->render('order-service/table-order-service.php', [
-            'title' => 'Ordem de serviço',
-            'allOrder' => $this->oderRepository->bringAllOrder()
+        $template = $this->render('order-service/table-service-orders.php', [
+            'title'             => 'Ordens de serviço',
+            'allServiceOrder'   => $this->oderRepository->bringAllOrder()
         ]);
         return new Response(200, [], $template);
     }

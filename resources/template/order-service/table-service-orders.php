@@ -1,17 +1,17 @@
 <?php
+
 require_once __DIR__ . '/../../includes/header.php';
-require __DIR__ . '/../../includes/content.php';
+require_once __DIR__ . '/../../includes/content.php';
 require_once __DIR__ . '/../../includes/alert-message.php';
 
-/** @var \App\View\Client\TableClients $allClients */
+/** @var \App\View\OrderService\TableServiceOrders $allServiceOrder */
 
 ?>
 
-<h4 class="text-center">Tabela com todos clientes registrados no sistema.</h4>
+<h4 class="text-center">Tabela com todas ordens de serviço registradas no sistema.</h4>
 
 <div class="form-group mt-3">
-    <input type="text" id="filter-table" class="form-control border-dark"
-           placeholder="Digite o nome do cliente ou CPF / CNJPJ">
+    <input type="text" id="filter-table" class="form-control border-dark" placeholder="Digite o nome do cliente ou CPF / CNJPJ">
 </div>
 
 <table class="table table-bordered table-striped table-responsive-xl border w-100">
@@ -27,13 +27,21 @@ require_once __DIR__ . '/../../includes/alert-message.php';
     </thead>
 
     <tbody>
-    <?php foreach ($allOrder as $order): ?>
+    <?php foreach ($allServiceOrder as $order): ?>
         <tr class="client">
-            <td style="width: 10%;" class="info-name"><?= $order['id_order']; ?></td>
+            <td style="width: 10%;" class="info-name">
+                <?= $order['id_order']; ?>
+            </td>
             <td><?= $order['firstname'] . ' ' . $order['lastname']; ?></td>
-            <td style="width: 12%;"> <?= $order['CPF_CNPJ']; ?></td>
-            <td style="width: 18%;"><?= $order['license_plate'] . ' / ' . $order['brand'] . ' / ' . $order['model']; ?></td>
-            <td class="text-center"><?= $order['status_order']; ?></td>
+            <td style="width: 12%;">
+                <?= $order['CPF_CNPJ']; ?>
+            </td>
+            <td style="width: 18%;">
+                <?= $order['license_plate'] . ' / ' . $order['brand'] . ' / ' . $order['model']; ?>
+            </td>
+            <td class="text-center">
+                <?= $order['status_order']; ?>
+            </td>
             <td style="width: 10%" class="text-center">
                 <a href="/order?id=<?= $order['id_order']; ?>" class="btn btn-success">O.S Completa</a>
             </td>

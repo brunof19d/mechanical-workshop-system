@@ -10,14 +10,14 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class VerifyClient implements RequestHandlerInterface
+class VerifyIdentity implements RequestHandlerInterface
 {
     use RenderHtml;
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $template = $this->render('client/verify-client.php', [
-            'title' => 'Vericação CPF'
+        $template = $this->render('client/verify-identity.php', [
+            'title' => 'Verificação CPF / CNJPJ'
         ]);
         return new Response(200, [], $template);
     }

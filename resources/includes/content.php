@@ -34,7 +34,7 @@
                             <div class="collapse ml-5" id="m1">
                                 <ul class="flex-column nav">
                                     <a class="nav-link" href="/table-client">Buscar</a>
-                                    <a class="nav-link" href="/verify-client">Adicionar</a>
+                                    <a class="nav-link" href="/verify-identity">Adicionar</a>
                                 </ul>
                             </div>
                         </li>
@@ -48,7 +48,7 @@
                             <div class="collapse ml-5" id="m3">
                                 <ul class="flex-column nav">
                                     <a class="nav-link" href="/table-order">Buscar</a>
-                                    <a class="nav-link" href="/new-order-service">Adicionar</a>
+                                    <a class="nav-link" href="/new-os-step1">Adicionar</a>
                                 </ul>
                             </div>
                         </li>

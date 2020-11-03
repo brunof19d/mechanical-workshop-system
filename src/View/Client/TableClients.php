@@ -26,7 +26,7 @@ class TableClients implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $template = $this->render('client/table-clients.php', [
-            'title' => 'Tabela Cliente',
+            'title' => 'Tabela Clientes',
             'allClients' => $this->repository->bringAllClients()
         ]);
         return new Response(200, [], $template);

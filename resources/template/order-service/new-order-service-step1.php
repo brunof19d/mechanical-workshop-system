@@ -26,7 +26,7 @@ require_once __DIR__ . '/../../includes/alert-message.php';
                 <?= date("d/m/Y", strtotime($client['added'])) . ' às ' . date("H:i:s A", strtotime($client['added'])); ?>
             </td>
             <td style="width: 10%;"  class="text-center">
-                <a class="btn btn-success btn-sm" href="/description-order-service?id=<?= $client['id']; ?>">Avançar</a>
+                <a class="btn btn-success btn-sm" href="/new-os-step2?id=<?= $client['id']; ?>">Avançar</a>
             </td>
         </tr>
     <?php endforeach; ?>

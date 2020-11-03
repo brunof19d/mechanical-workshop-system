@@ -1,5 +1,11 @@
-<?php require_once __DIR__ . '/../../includes/header.php';
-require __DIR__ . '/../../includes/content.php'; ?>
+<?php
+
+require_once __DIR__ . '/../../includes/header.php';
+require __DIR__ . '/../../includes/content.php';
+
+
+
+?>
     <div class="border m-3 p-5 bg-light form-content">
 
         <form method="POST" action="/save-client">
@@ -12,7 +18,7 @@ require __DIR__ . '/../../includes/content.php'; ?>
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label for="cpf_cnpj">CPF / CNPJ <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="XXX.XXX.XXX-XX" value="<?= /** @var \App\View\Client\NewClient $cpfCnpj */ $cpfCnpj; ?>">
+                    <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="XXX.XXX.XXX-XX" value="<?= /** @var \App\View\Client\FormCreateClient $cpfCnpj */ $cpfCnpj; ?>">
                 </div>
                 <div class="form-group col-md-5">
                     <label for="inputName">Nome / Razão Social <span class="span-required">*</span></label>
@@ -76,6 +82,8 @@ require __DIR__ . '/../../includes/content.php'; ?>
                 </div>
 
             </div>
+
+            <input type="hidden" name="url" value="<?= $url ?>">
 
             <button type="submit" class="btn btn-default w-100 mt-3">Registrar Cliente</button>
 

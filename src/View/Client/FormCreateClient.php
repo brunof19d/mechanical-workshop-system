@@ -12,7 +12,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class NewClient
+class FormCreateClient
 {
     use RenderHtml;
     use FlashMessage;
@@ -29,8 +29,7 @@ class NewClient
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         try {
-            if ( isset ( $request->getParsedBody()['cpf_cnpj'] ) ) {
-
+            if (isset ($request->getParsedBody()['cpf_cnpj'])) {
                 $data = $request->getParsedBody()['cpf_cnpj'];
                 $this->client->setIdentification($data);
 
@@ -38,15 +37,16 @@ class NewClient
                 if ($check === TRUE) throw new \Exception('CPF já cadastrado no sistema.');
             }
 
-            $template = $this->render('client/new-client.php', [
-                'title' => 'Adicionar cliente',
-                'cpfCnpj' => isset( $data ) ? $data : ''
+            $template = $this->render('client/form-create-client.php', [
+                'title'     => 'Adicionar cliente',
+                'cpfCnpj'   => isset($data) ? $data : '',
+                'url'       => $_SERVER['REQUEST_URI']
             ]);
 
             return new Response(200, [], $template);
         } catch (\Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
-            return new Response(302, ['Location' => '/verify-client']);
+            return new Response(302, ['Location' => '/verify-identity']);
         }
     }
 }

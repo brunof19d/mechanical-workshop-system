@@ -1,32 +1,31 @@
 <?php
 
 
-namespace App\View\Client;
+namespace App\View\Motorcycle;
 
 
 use App\Entity\Client\Client;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
 use App\Helper\RenderHtml;
-use App\Repository\ClientRepository;
+use App\Repository\MotorcycleRepository;
 use Exception;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
-class SingleClient implements RequestHandlerInterface
+class ClientMotorcycle
 {
     use RenderHtml;
     use FlashMessage;
 
-    private ClientRepository $repository;
     private Client $client;
     private FilterSanitize $sanitize;
+    private MotorcycleRepository $motorcycleRepository;
 
-    public function __construct(ClientRepository $repository, Client $client, FilterSanitize $sanitize)
+    public function __construct(MotorcycleRepository $motorcycleRepository, Client $client, FilterSanitize $sanitize)
     {
-        $this->repository = $repository;
+        $this->motorcycleRepository = $motorcycleRepository;
         $this->client = $client;
         $this->sanitize = $sanitize;
     }
@@ -34,22 +33,18 @@ class SingleClient implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         try {
-            $id = $_GET['id'];
-            $this->sanitize->int($id, 'ID invalido');
-            $this->client->setId($id);
+            $idClient = $this->sanitize->int($_GET['id'], 'ID invalido');
+            $this->client->setId($idClient);
 
-            $template = $this->render('client/single-client.php', [
-                'title' => 'Dados cliente',
-                'client' => $this->repository->bringClient($this->client)
+            $template = $this->render('motorcycle/bike-assoc-client.php', [
+                'title'         => 'Motocicletas do cliente',
+                'idClient'      => $this->client->getId(),
+                'allMotorcycle' => $this->motorcycleRepository->bringClientMotorcycle($this->client)
             ]);
-
             return new Response(200, [], $template);
-
         } catch ( Exception $error ) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
             return new Response(302, ['Location' => '/table-client']);
         }
-
-
     }
 }

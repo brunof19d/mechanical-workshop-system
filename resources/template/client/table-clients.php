@@ -29,7 +29,7 @@ require_once __DIR__ . '/../../includes/alert-message.php';
             <td class="info-id" style="width: 20%"><?= $client['CPF_CNPJ']; ?></td>
             <td style="width: 20% "><?= $client['phone_one']; ?></td>
             <td style="width: 10%" class="text-center">
-                <a class="btn btn-info" href="/single-client?id=<?= $client['id']; ?>">Ver Mais</a>
+                <a class="btn btn-info" href="/client?id=<?= $client['id']; ?>">Ver Mais</a>
             </td>
             <td style="width: 10%;"  class="text-center">
                 <a class="btn btn-success" href="/motorcycle-client?id=<?= $client['id']; ?>">Ver Detalhes</a>

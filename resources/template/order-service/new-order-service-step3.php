@@ -3,10 +3,10 @@
 require_once __DIR__ . '/../../includes/header.php';
 require __DIR__ . '/../../includes/content.php';
 
-/** @var \App\View\OrderService\OrderService $dataClient */
-/** @var \App\View\OrderService\OrderService $dataMotorcycle */
-/** @var \App\View\OrderService\OrderService $problemDescription */
-/** @var \App\View\OrderService\OrderService $descriptionMotorcycle */
+/** @var \App\View\OrderService\NewOrderStepThree $dataClient */
+/** @var \App\View\OrderService\NewOrderStepThree $dataMotorcycle */
+/** @var \App\View\OrderService\NewOrderStepThree $problemDescription */
+/** @var \App\View\OrderService\NewOrderStepThree $descriptionMotorcycle */
 
 $date = new DateTimeImmutable();
 

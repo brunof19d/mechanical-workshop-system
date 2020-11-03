@@ -39,7 +39,8 @@ class FormUpdateClient
 
             $template = $this->render('client/form-update-client.php', [
                 'title'     => 'Atualizar cliente',
-                'client'    => $this->repository->bringClient($this->client)
+                'client'    => $this->repository->bringClient($this->client),
+                'url'       => $_SERVER['REQUEST_URI']
             ]);
             return new Response(200, [], $template);
 

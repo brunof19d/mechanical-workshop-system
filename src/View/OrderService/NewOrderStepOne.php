@@ -11,7 +11,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class NewOrderService
+class NewOrderStepOne
 {
     use RenderHtml;
 
@@ -24,8 +24,8 @@ class NewOrderService
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $template = $this->render('order-service/new-order-service.php', [
-            'title'         => 'Nova ordem de serviço',
+        $template = $this->render('order-service/new-order-service-step1.php', [
+            'title'         => 'Nova ordem de serviço - Passo 1',
             'allClients'    => $this->repository->bringAllClients()
         ]);
         return new Response(200, [], $template);

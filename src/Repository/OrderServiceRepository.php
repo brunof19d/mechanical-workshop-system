@@ -7,11 +7,12 @@ namespace App\Repository;
 use App\Entity\Client\Client;
 use App\Entity\Motorcycle\Motorcycle;
 use App\Entity\OrderService\OrderService;
+use App\Entity\OrderService\OrderServiceInterface;
 use App\Entity\Product\Product;
 use PDO;
 use App\Database\DatabaseConnection;
 
-class OrderServiceRepository
+class OrderServiceRepository implements OrderServiceInterface
 {
     private PDO $pdo;
 
@@ -43,7 +44,7 @@ class OrderServiceRepository
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function createOrder(Client $client, Motorcycle $motorcycle, OrderService $order)
+    public function createOrder(Client $client, Motorcycle $motorcycle, OrderService $order): string
     {
         $date = new \DateTimeImmutable();
         $sql = "INSERT INTO order_service 
@@ -63,7 +64,7 @@ class OrderServiceRepository
         return $this->pdo->lastInsertId();
     }
 
-    public function bringProductsOrderService(OrderService $order)
+    public function bringProductsOrderService(OrderService $order): array
     {
         $sql = "SELECT * FROM products_by_service_order
             INNER JOIN product ON products_by_service_order.id_product = product.id
@@ -86,7 +87,7 @@ class OrderServiceRepository
         return $productList;
     }
 
-    public function allpriceOrder(OrderService $order)
+    public function allPriceOrder(OrderService $order)
     {
         $sql = "SELECT SUM(value_total) FROM products_by_service_order WHERE id_order_service = :id_order_service";
         $statement = $this->pdo->prepare($sql);

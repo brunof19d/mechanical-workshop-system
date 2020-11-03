@@ -1,4 +1,10 @@
-<?php require_once __DIR__ . '/../../includes/header.php'; require __DIR__ . '/../../includes/content.php'; ?>
+<?php
+
+require_once __DIR__ . '/../../includes/header.php';
+require __DIR__ . '/../../includes/content.php';
+
+
+?>
 
 <div class="border m-3 p-5 bg-light form-content">
 
@@ -77,7 +83,9 @@
 
         </div>
 
-        <button type="submit" class="btn btn-default w-100 mt-3">Registrar Cliente</button>
+        <input type="hidden" name="url" value="<?= $url ?>">
+
+        <button type="submit" class="btn btn-default w-100 mt-3">Atualizar Cliente</button>
 
     </form>
 

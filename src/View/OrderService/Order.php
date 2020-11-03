@@ -4,6 +4,7 @@
 namespace App\View\OrderService;
 
 
+use App\Entity\OrderService\OrderService;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
 use App\Helper\RenderHtml;
@@ -20,9 +21,9 @@ class Order
 
     private OrderServiceRepository $orderRepository;
     private FilterSanitize $sanitize;
-    private \App\Entity\OrderService\OrderService $order;
+    private OrderService $order;
 
-    public function __construct(OrderServiceRepository $orderRepository, FilterSanitize $sanitize, \App\Entity\OrderService\OrderService $order)
+    public function __construct(OrderServiceRepository $orderRepository, FilterSanitize $sanitize, OrderService $order)
     {
         $this->orderRepository = $orderRepository;
         $this->sanitize = $sanitize;
@@ -36,10 +37,10 @@ class Order
             $this->order->setIdOrder($idOrder);
 
             $template = $this->render('order-service/order.php', [
-                'title' => 'Nova ordem de serviço',
-                'order' => $this->orderRepository->bringOrder($this->order),
-                'allProductsOrder' => $this->orderRepository->bringProductsOrderService($this->order),
-                'allpriceOrder' => $this->orderRepository->allpriceOrder($this->order)
+                'title'             => 'Ordem de serviço',
+                'order'             => $this->orderRepository->bringOrder($this->order),
+                'allProductsOrder'  => $this->orderRepository->bringProductsOrderService($this->order),
+                'allPriceOrder'     => $this->orderRepository->allPriceOrder($this->order)
             ]);
 
             return new Response(200, [], $template);

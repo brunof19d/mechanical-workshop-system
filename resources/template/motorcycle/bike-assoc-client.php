@@ -1,9 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../../includes/header.php';
 require __DIR__ . '/../../includes/content.php';
+/** @var \App\View\Motorcycle\ClientMotorcycle $idClient */
+/** @var \App\View\Motorcycle\ClientMotorcycle $allMotorcycle */
 
-/** @var \App\View\Motorcycle\MotorcycleClient $idClient */
-/** @var \App\View\Motorcycle\MotorcycleClient $allMotorcycle */
 ?>
 
     <div class="border m-3 p-5 bg-light form-content">
