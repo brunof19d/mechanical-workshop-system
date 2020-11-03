@@ -33,6 +33,16 @@ return [
     '/save-order-service'   => \App\Controller\OrderService\ControllerOrderService::class,
     '/order'                => \App\View\OrderService\Order::class,
     '/table-order'          => \App\View\OrderService\TableServiceOrders::class,
-    '/products-by-order'    => \App\View\Products\AddProductsInOrder::class
+    '/products-by-order'    => \App\View\Products\AddProductsInOrder::class,
+
+    // Products section
+    '/add-product'      => \App\View\Products\AddProduct::class,
+    '/table-products'   => \App\View\Products\TableProducts::class,
+
+    '/add-category'     => \App\View\Products\AddCategory::class,
+    '/table-category'   => \App\View\Products\TableCategory::class,
+    '/save-category'    => \App\Controller\Product\ControllerCategory::class,
+    '/remove-category'  => \App\Controller\Product\RemoveCategory::class
+
 
 ];

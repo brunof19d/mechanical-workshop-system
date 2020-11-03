@@ -7,22 +7,9 @@ namespace App\Entity\Product;
 class Product
 {
     private int $idProduct;
-    private string $descriptionProduct;
-    private float $valueUnit;
-    private int $unit;
-    private int $amount;
-    private float $valueTotal;
-
-    public function getValueTotal(): float
-    {
-        return $this->valueTotal;
-    }
-
-    public function setValueTotal(float $valueUnit, int $unit): void
-    {
-        $valueTotal = ($valueUnit * $unit);
-        $this->valueTotal = $valueTotal;
-    }
+    private string $description;
+    private CategoryProduct $category;
+    private float $value;
 
     public function getIdProduct(): int
     {
@@ -34,43 +21,35 @@ class Product
         $this->idProduct = $idProduct;
     }
 
-    public function getDescriptionProduct(): string
+    public function getDescription(): string
     {
-        return $this->descriptionProduct;
+        return $this->description;
     }
 
-    public function setDescriptionProduct(string $descriptionProduct): void
+    public function setDescription(string $description): void
     {
-        $this->descriptionProduct = $descriptionProduct;
+        $this->description = $description;
     }
 
-    public function getValueUnit(): float
+    public function getCategory(): CategoryProduct
     {
-        return $this->valueUnit;
+        return $this->category;
     }
 
-    public function setValueUnit(float $valueUnit): void
+    public function setCategory(CategoryProduct $category): void
     {
-        $this->valueUnit = $valueUnit;
+        $this->category = $category;
     }
 
-    public function getUnit(): int
+    public function getValue(): float
     {
-        return $this->unit;
+        return $this->value;
     }
 
-    public function setUnit(int $unit): void
+    public function setValue(float $value): void
     {
-        $this->unit = $unit;
+        $this->value = $value;
     }
 
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
 
-    public function setAmount(int $amount): void
-    {
-        $this->amount = $amount;
-    }
 }

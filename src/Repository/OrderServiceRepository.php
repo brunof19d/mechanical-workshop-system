@@ -78,10 +78,8 @@ class OrderServiceRepository implements OrderServiceInterface
         foreach ($productDataList as $row) {
             $productData = new Product();
             $productData->setIdProduct($row['id_product']);
-            $productData->setDescriptionProduct($row['description_product']);
-            $productData->setValueUnit($row['value_unit']);
-            $productData->setAmount($row['amount']);
-            $productData->setValueTotal($row['value_unit'], $row['amount']);
+            $productData->setDescription($row['description_product']);
+            $productData->setValue($row['value_unit']);
             array_push($productList, $productData);
         }
         return $productList;

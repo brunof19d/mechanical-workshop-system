@@ -103,10 +103,10 @@ $date = new DateTimeImmutable($order['date_added']);
             <?php foreach ($allProductsOrder as $product): ?>
                 <tr>
                     <td><?= $product->getIdProduct(); ?></td>
-                    <td><?= $product->getDescriptionProduct(); ?></td>
-                    <td><?= $product->getValueUnit(); ?></td>
-                    <td><?= $product->getAmount(); ?></td>
-                    <td><?= $product->getValueTotal(); ?></td>
+                    <td><?= $product->getDescription(); ?></td>
+                    <td><?= $product->getValue(); ?></td>
+                    <td></td>
+                    <td></td>
                     <td>X</td>
                 </tr>
             <?php endforeach; ?>

@@ -53,13 +53,25 @@
                             </div>
                         </li>
 
+                        <!-- Order of service menu -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#m4" data-parent="#navbar4" data-toggle="collapse"
+                               data-target="#m4" aria-expanded="false">
+                                <i class="ml-1 arrow right"></i><span class="ml-2">Produtos</span>
+                            </a>
+                            <div class="collapse ml-5" id="m4">
+                                <ul class="flex-column nav">
+                                    <a class="nav-link" href="/table-products">Buscar</a>
+                                    <a class="nav-link" href="/add-product">Adicionar Produto</a>
+                                    <a class="nav-link" href="/add-category">Adicionar Categoria</a>
+                                </ul>
+                            </div>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#"><span class="ml-2">Serviços Rapidos</span></a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> <span class="ml-2">Produtos</span></a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="#"><span class="ml-2">Financeiro</span></a>
