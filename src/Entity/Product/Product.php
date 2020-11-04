@@ -8,7 +8,7 @@ class Product
 {
     private int $idProduct;
     private string $description;
-    private float $value;
+    private string $value;
 
     public function getIdProduct(): int
     {
@@ -30,12 +30,12 @@ class Product
         $this->description = $description;
     }
 
-    public function getValue(): float
+    public function getValue(): string
     {
         return $this->value;
     }
 
-    public function setValue(float $value): void
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }

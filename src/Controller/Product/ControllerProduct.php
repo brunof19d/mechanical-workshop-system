@@ -35,7 +35,6 @@ class ControllerProduct implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-
         try {
             $data = $request->getParsedBody();
 
@@ -45,8 +44,9 @@ class ControllerProduct implements RequestHandlerInterface
             $nameProduct = $this->sanitize->string($data['description'], 'Descrição do produto invalida');
             $this->product->setDescription(strtoupper($nameProduct));
 
-            $valueProduct = $this->sanitize->float($data['value'], 'Valor do produto invalido');
-            $this->product->setValue($valueProduct);
+            $valueProduct = $this->sanitize->string($data['value'], 'Valor do produto invalido');
+            $valueFormatDB = str_replace(',', '.', str_replace('.', '', $valueProduct));
+            $this->product->setValue($valueFormatDB);
 
             $this->repository->createProduct($this->product, $this->category);
             $this->alertMessage('success', 'Produto adicionado com sucesso');
