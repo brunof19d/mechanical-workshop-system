@@ -28,4 +28,11 @@ class FilterSanitize
         if (!$filter) throw new Exception($messageThrow);
         return $filter;
     }
+
+    public function float($var, string $messageThrow)
+    {
+        $filter = filter_var($var, FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        if (!$filter) throw new Exception($messageThrow);
+        return $filter;
+    }
 }

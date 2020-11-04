@@ -37,7 +37,10 @@ return [
 
     // Products section
     '/add-product'      => \App\View\Products\AddProduct::class,
+    '/save-product'     => \App\Controller\Product\ControllerProduct::class,
+    '/remove-product'   => \App\Controller\Product\RemoveProduct::class,
     '/table-products'   => \App\View\Products\TableProducts::class,
+    '/table-filter'     => \App\View\Products\TableFilterCategory::class,
 
     '/add-category'     => \App\View\Products\AddCategory::class,
     '/table-category'   => \App\View\Products\TableCategory::class,

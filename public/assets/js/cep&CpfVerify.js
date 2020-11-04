@@ -1,6 +1,15 @@
 $("#licensePlate").mask("AAA-0000");
 $('#kmMotorcycle').mask("##.#00", {reverse: true, maxlength: false});
 
+$(document).ready(function(){
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+
+    $(".money").change(function(){
+        $("#value").html($(this).val().replace(/\D/g,''))
+    })
+
+});
+
 $("#cep").mask("##.###-###");
 
 $("#cep").blur(function () {

@@ -8,7 +8,6 @@ class Product
 {
     private int $idProduct;
     private string $description;
-    private CategoryProduct $category;
     private float $value;
 
     public function getIdProduct(): int
@@ -29,16 +28,6 @@ class Product
     public function setDescription(string $description): void
     {
         $this->description = $description;
-    }
-
-    public function getCategory(): CategoryProduct
-    {
-        return $this->category;
-    }
-
-    public function setCategory(CategoryProduct $category): void
-    {
-        $this->category = $category;
     }
 
     public function getValue(): float
