@@ -34,6 +34,7 @@ return [
     '/order'                => \App\View\OrderService\Order::class,
     '/table-order'          => \App\View\OrderService\TableServiceOrders::class,
     '/products-by-order'    => \App\View\Products\AddProductsInOrder::class,
+    '/save-products-order'  => \App\Controller\OrderService\ControllerProductsByOrder::class,
 
     // Products section
     '/add-product'      => \App\View\Products\AddProduct::class,

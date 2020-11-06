@@ -4,10 +4,10 @@ require_once __DIR__ . '/../../includes/header.php';
 require_once __DIR__ . '/../../includes/content.php';
 require_once __DIR__ . '/../../includes/alert-message.php';
 
-/** @var \App\View\OrderService\Order $allProductsOrder */
-/** @var \App\View\OrderService\Order $allPriceOrder */
-/** @var \App\Entity\Product\Product $product */
+
 /** @var \App\View\OrderService\Order $order */
+/** @var \App\View\OrderService\Order $products */
+/** @var \App\View\OrderService\Order $sumTotal */
 
 $date = new DateTimeImmutable($order['date_added']);
 
@@ -15,60 +15,56 @@ $date = new DateTimeImmutable($order['date_added']);
 
     <div class="border bg-light form-content pl-5 pr-5 pb-5">
 
-        <p><strong>Status:</strong> Na fila</p>
-
+        <!--  Header OS -->
         <div class="order-date mt-5">
-            <p class="">ORDEM DE SERVIÇO<strong class="ml-2"><?= $order['id_order']; ?></strong></p>
-            <p class="">Hora: <?= $date->format('H:i:s'); ?> </p>
-            <p class="">Data: <?= $date->format('d/m/Y'); ?></p>
+            <p class="text-center"><strong class="mr-2">ORDEM DE SERVIÇO:</strong><?= $order['id_order']; ?></p>
+            <p class="text-center"><strong class="mr-2">Hora:</strong><?= $date->format('H:i:s'); ?></p>
+            <p class="text-center"><strong class="mr-2">Data:</strong><?= $date->format('d/m/Y'); ?></p>
+            <p class="text-center"><strong class="mr-2">Status:</strong><?= $order['status_order']; ?></p>
         </div>
 
         <hr>
 
         <div class="order-client">
             <p class="mr-3"><strong
-                        class="mr-2">Cliente:</strong><?= $order['firstname'] . ' ' . $order['lastname'] ?> </p>
-            <p class="ml-3"><strong class="mr-2">CPF / CNPJ:</strong><?= $order['CPF_CNPJ']; ?></p>
+                        class="mr-2">Cliente:</strong></p>
+            <p class="ml-3"><strong class="mr-2">CPF / CNPJ:</strong></p>
         </div>
 
         <div class="order-contact">
-            <p><strong class="mr-2">Telefone:</strong><?= $order['phone_one']; ?></p>
-            <p><strong class="mr-2">Telefone 2:</strong><?= $order['phone_two']; ?></p>
-            <p><strong class="mr-2">Email:</strong><?= $order['email']; ?></p>
+            <p><strong class="mr-2">Telefone:</strong></p>
+            <p><strong class="mr-2">Telefone 2:</strong></p>
+            <p><strong class="mr-2">Email:</strong></p>
         </div>
 
         <div class="order-address">
-            <p>
-                <strong class="mr-2">Endereço:</strong>
-                <?= $order['address'] . ', ' . $order['number_address']; ?>
-            </p>
-            <p><strong class="mr-2">Complemento:</strong><?= $order['comp_address']; ?></p>
-            <p><strong class="mr-2">Cidade:</strong><?= $order['city']; ?></p>
-            <p><strong class="mr-2">UF:</strong><?= $order['state']; ?></p>
-            <p><strong class="mr-2">CEP:</strong><?= $order['cep']; ?></p>
+            <p><strong class="mr-2">Endereço:</strong></p>
+            <p><strong class="mr-2">Complemento:</strong></p>
+            <p><strong class="mr-2">Cidade:</strong></p>
+            <p><strong class="mr-2">UF:</strong></p>
+            <p><strong class="mr-2">CEP:</strong></p>
         </div>
 
         <hr>
 
         <div class="order-motorcycle">
-            <p><strong class="mr-2">Emplacamento:</strong><?= $order['license_plate']; ?></p>
-            <p><strong class="mr-2">Marca:</strong><?= $order['brand']; ?></p>
-            <p><strong class="mr-2">Modelo:</strong><?= $order['model']; ?></p>
+            <p><strong class="mr-2">Emplacamento:</strong></p>
+            <p><strong class="mr-2">Marca:</strong></p>
+            <p><strong class="mr-2">Modelo:</strong></p>
         </div>
 
         <div class="order-motorcycle">
-            <p><strong class="mr-2">Cilindrada:</strong><?= $order['engine_capacity']; ?></p>
-            <p>
-                <strong class="mr-2">Ano:</strong><?= $order['manufacture_year'] . ' / ' . $order['model_year'] ?>
-            </p>
-            <p><strong class="mr-2">KM Atual:</strong><?= $order['kilometer']; ?></p>
+            <p><strong class="mr-2">Cilindrada:</strong></p>
+            <p><strong class="mr-2">Ano:</strong></p>
+            <p><strong class="mr-2">KM Atual:</strong></p>
         </div>
 
         <hr>
 
-        <div class="text-nowrap">
+        <!-- Client considerations and motorcycle description -->
+        <div>
             <strong class="mr-2">Problema informado pelo cliente:</strong>
-            <p><?= $order['problem_motorcycle']; ?></p>
+            <p><?= $order['client_reported']; ?></p>
             <strong class="mr-2">Observações do estado da moto:</strong>
             <p><?= $order['description_motorcycle']; ?></p>
         </div>
@@ -100,14 +96,14 @@ $date = new DateTimeImmutable($order['date_added']);
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($allProductsOrder as $product): ?>
+            <?php foreach ($products as $row): ?>
                 <tr>
-                    <td><?= $product->getIdProduct(); ?></td>
-                    <td><?= $product->getDescription(); ?></td>
-                    <td><?= $product->getValue(); ?></td>
-                    <td></td>
-                    <td></td>
-                    <td>X</td>
+                    <td><?= $row['id_refproduct']; ?></td>
+                    <td><?= $row['description']; ?></td>
+                    <td>R$ <?= $row['value']; ?></td>
+                    <td><?= $row['amount']; ?></td>
+                    <td>R$ <?= $row['value_total']; ?></td>
+                    <td><a class="btn btn-danger btn-sm" href="">X</a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -122,7 +118,7 @@ $date = new DateTimeImmutable($order['date_added']);
                 <td></td>
                 <td></td>
                 <td class="bg-dark" style="color: white">Valor Total</td>
-                <td><?= $allPriceOrder; ?> </td>
+                <td>R$ <?= $sumTotal ?></td>
             </tr>
             </tfoot>
         </table>

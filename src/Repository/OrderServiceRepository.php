@@ -34,9 +34,7 @@ class OrderServiceRepository implements OrderServiceInterface
 
     public function bringOrder(OrderService $oder): array
     {
-        $sql = "SELECT * FROM order_service 
-            INNER JOIN client ON order_service.id_client = client.id
-            INNER JOIN motorcycle ON order_service.id_motorcycle = motorcycle.id_motorcycle
+        $sql = "SELECT * FROM order_service
             WHERE id_order = :id_order
         ";
         $statement = $this->pdo->prepare($sql);
@@ -48,15 +46,15 @@ class OrderServiceRepository implements OrderServiceInterface
     {
         $date = new \DateTimeImmutable();
         $sql = "INSERT INTO order_service 
-            (id_client, id_motorcycle, problem_motorcycle, description_motorcycle, date_added)
+            (id_client, id_motorcycle, client_reported, description_motorcycle, date_added)
             VALUES 
-            (:id_client, :id_motorcycle, :problem_motorcycle, :description_motorcycle, :date_added)
+            (:id_client, :id_motorcycle, :client_reported, :description_motorcycle, :date_added)
         ";
         $statement = $this->pdo->prepare($sql);
         $statement->execute([
             ':id_client'                => $client->getId(),
             ':id_motorcycle'            => $motorcycle->getIdMotorcycle(),
-            ':problem_motorcycle'       => $order->getProblemMotorcycle(),
+            ':client_reported'          => $order->getClientReported(),
             ':description_motorcycle'   => $order->getDescriptionMotorcycle(),
             ':date_added'               => $date->format('Y-m-d H:i:s')
         ]);
@@ -66,31 +64,34 @@ class OrderServiceRepository implements OrderServiceInterface
 
     public function bringProductsOrderService(OrderService $order): array
     {
-        $sql = "SELECT * FROM products_by_service_order
-            INNER JOIN product ON products_by_service_order.id_product = product.id
-            WHERE id_order_service = :id_order_service
+        $sql = "SELECT * FROM products_by_order
+            INNER JOIN product ON products_by_order.id_refproduct = product.id_product
+            WHERE id_os = :id_os
         ";
         $statement = $this->pdo->prepare($sql);
-        $statement->execute( [':id_order_service' => $order->getIdOrder() ]);
-        $productDataList = $statement->fetchAll(PDO::FETCH_ASSOC);
-        $productList = [];
-
-        foreach ($productDataList as $row) {
-            $productData = new Product();
-            $productData->setIdProduct($row['id_product']);
-            $productData->setDescription($row['description_product']);
-            $productData->setValue($row['value_unit']);
-            array_push($productList, $productData);
-        }
-        return $productList;
+        $statement->execute( [ ':id_os' => $order->getIdOrder() ]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function allPriceOrder(OrderService $order)
+    public function createProductByOrder(OrderService $order, Product $product): void
     {
-        $sql = "SELECT SUM(value_total) FROM products_by_service_order WHERE id_order_service = :id_order_service";
+        $sql = "INSERT INTO products_by_order (id_os, id_refproduct, amount, value_total) 
+            VALUES (:id_os, :id_refproduct, :amount, :value_total)
+        ";
         $statement = $this->pdo->prepare($sql);
-        $statement->execute([':id_order_service' => $order->getIdOrder() ]);
-        return $statement->fetch(PDO::FETCH_COLUMN);
+        $statement->execute([
+            ':id_os'            => $order->getIdOrder(),
+            ':id_refproduct'    => $product->getIdProduct(),
+            ':amount'           => $product->getAmount(),
+            ':value_total'      => $product->getValueTotal()
+        ]);
+    }
 
+    public function sumTotalProducts(OrderService $order)
+    {
+        $sql = "SELECT SUM(value_total) FROM products_by_order WHERE id_os = :id_os";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':id_os' => $order->getIdOrder()]);
+        return $statement->fetch(PDO::FETCH_COLUMN);
     }
 }

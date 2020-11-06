@@ -50,7 +50,7 @@ class ControllerOrderService implements RequestHandlerInterface
             $this->motorcycle->setIdMotorcycle($idMotorcycle);
 
             $problemMotorcycle = $this->sanitize->string($_SESSION['problemMotorcycle'], 'Campo do problema informado invalido');
-            $this->order->setProblemMotorcycle($problemMotorcycle);
+            $this->order->setClientReported($problemMotorcycle);
 
             $descriptionMotorcycle = $this->sanitize->string($_SESSION['descriptionMotorcycle'], 'Campo desrição invalido');
             $this->order->setDescriptionMotorcycle($descriptionMotorcycle);
@@ -61,7 +61,7 @@ class ControllerOrderService implements RequestHandlerInterface
             return new Response(200, ["Location" => "/order?id=$returnLastIdInsert"]);
         } catch (Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
-            return new Response(302, ['Location' => '/new-order-service']);
+            return new Response(302, ['Location' => '/new-os-step1']);
         }
     }
 }

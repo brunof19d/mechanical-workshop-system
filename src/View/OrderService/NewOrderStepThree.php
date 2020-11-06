@@ -46,7 +46,7 @@ class NewOrderStepThree
             'data'                  => $data,
             'dataClient'            => $this->clientRepository->bringClient($this->client),
             'dataMotorcycle'        => $this->motorcycleRepository->bringMotorcycle($this->motorcycle),
-            'problemDescription'    =>  $data['problem'],
+            'problemDescription'    => $data['problem'],
             'descriptionMotorcycle' => $data['description']
         ]);
 

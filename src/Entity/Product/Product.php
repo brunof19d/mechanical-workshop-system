@@ -9,6 +9,8 @@ class Product
     private int $idProduct;
     private string $description;
     private string $value;
+    private int $amount;
+    private string $valueTotal;
 
     public function getIdProduct(): int
     {
@@ -39,6 +41,29 @@ class Product
     {
         $this->value = $value;
     }
+
+    public function getAmount(): int
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(int $amount): void
+    {
+        $this->amount = $amount;
+    }
+
+    public function getValueTotal(): string
+    {
+        return $this->valueTotal;
+    }
+
+    public function setValueTotal(int $amount, string $value ): void
+    {
+        $valueTotal = ( $amount * $value );
+        $this->valueTotal = $valueTotal;
+    }
+
+
 
 
 }

@@ -20,6 +20,14 @@ class ProductRepository implements CategoryRepositoryInterface, ProductRepositor
         $this->pdo = DatabaseConnection::createConnection();
     }
 
+    public function bringProduct(Product $product): array
+    {
+        $sql = "SELECT * FROM product WHERE id_product = :id_product";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':id_product' => $product->getIdProduct()]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function bringAllProducts(): array
     {
         $sql = "SELECT * FROM product INNER JOIN category_product ON product.category = category_product.id_category";
