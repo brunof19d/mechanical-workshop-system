@@ -62,8 +62,4 @@ class Product
         $valueTotal = ( $amount * $value );
         $this->valueTotal = $valueTotal;
     }
-
-
-
-
 }

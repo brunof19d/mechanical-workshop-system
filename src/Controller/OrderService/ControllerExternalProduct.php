@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class ControllerProductsByOrder implements RequestHandlerInterface
+class ControllerExternalProduct implements RequestHandlerInterface
 {
     use FlashMessage;
 
@@ -46,23 +46,26 @@ class ControllerProductsByOrder implements RequestHandlerInterface
         try {
             $this->order->setIdOrder($idOrder);
 
-            $amount = $this->sanitize->int($data['amount'], 'Quantidade invalida');
+            $description = $this->sanitize->string($data['description'], 'Campo descrição invalido');
+            $this->product->setDescription(strtoupper($description));
+
+            $valueProduct = $this->sanitize->string($data['value'],'Campo valor invalido');
+            $valueFormatDB = str_replace(',', '.', str_replace('.', '', $valueProduct));
+            $this->product->setValue($valueFormatDB);
+
+            $amount = $this->sanitize->int($data['amount'], 'Campo quantidade invalido');
             $this->product->setAmount($amount);
 
-            $product = $this->sanitize->int($data['productSystem'], 'ID do produto invalido');
-            $this->product->setIdProduct($product);
+            $this->product->setValueTotal($this->product->getAmount(), $this->product->getValue());
 
-            $fetchProduct = $this->productRepository->bringProduct($this->product);
-            $this->product->setValue($fetchProduct['value']);
-            $this->product->setValueTotal($amount, $fetchProduct['value']);
-
-            $this->orderRepository->createProductByOrder($this->order, $this->product);
+            $this->orderRepository->createExternalProducts($this->order, $this->product);
             $this->alertMessage('success', 'Produto adicionado na O.S com sucesso');
 
-            return new Response(200, ['Location' => "/products-by-order?id=$idOrder"]);
+            return new Response(200, ['Location' => "/products-external?id=$idOrder"]);
         } catch (Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
-            return new Response(302, ["Location" => "/products-by-order?id=$idOrder"]);
+            return new Response(302, ["Location" => "/products-external?id=$idOrder"]);
         }
     }
+
 }

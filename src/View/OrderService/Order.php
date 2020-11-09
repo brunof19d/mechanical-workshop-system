@@ -40,7 +40,9 @@ class Order
                 'title' => 'Ordem de serviço',
                 'order' => $this->repository->bringOrder($this->order),
                 'products' => $this->repository->bringProductsOrderService($this->order),
-                'sumTotal' => $this->repository->sumTotalProducts($this->order)
+                'sumTotal' => $this->repository->sumTotalProducts($this->order),
+                'externalProducts' => $this->repository->bringProductsExternal($this->order),
+                'sumExternalProducts' => $this->repository->sumTotalExternalProducts($this->order)
             ]);
 
             return new Response(200, [], $template);

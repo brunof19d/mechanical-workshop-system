@@ -2,14 +2,18 @@
 
 require_once __DIR__ . '/../../includes/header.php';
 require_once __DIR__ . '/../../includes/content.php';
-require_once __DIR__ . '/../../includes/alert-message.php';
+
+/** @var \App\View\Products\AddProductsInOrder $idOrder */
+/** @var \App\View\Products\AddProductsInOrder $allProducts */
 
 ?>
 
-
 <div class="border m-3 p-5 bg-light form-content">
 
-    <h4 class="text-center mb-3"> PEÇAS CADASTRADAS NO SISTEMA </h4>
+    <div class="d-flex justify-content-center align-items-center">
+        <h4 class="text-center mr-3"> PEÇAS CADASTRADAS NO SISTEMA </h4>
+        <a href="/order?id=<?=$idOrder;?>#request" class="btn btn-danger btn-sm ml-3">Voltar</a>
+    </div>
 
     <?php require_once __DIR__ . '/../../includes/alert-message.php'; ?>
 
@@ -17,57 +21,19 @@ require_once __DIR__ . '/../../includes/alert-message.php';
 
         <input type="hidden" name="idOrder" value="<?= $idOrder; ?>">
 
-            <div class="col-lg-12">
-                <label for="select-product">Nome Produto:</label>
-                <select id="select-product" name="productSystem">
-                    <option value="" selected disabled>Escolha um produto</option>
-                    <?php foreach ($allProducts as $product): ?>
-                        <option value="<?= $product['id_product'] ?>"><?= $product['description']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+        <div class="col-lg-12">
+            <label for="select-product">Nome Produto:</label>
+            <select id="select-product" name="productSystem">
+                <option value="" selected disabled>Digite um produto</option>
+                <?php foreach ($allProducts as $product): ?>
+                    <option value="<?= $product['id_product'] ?>"><?= $product['description']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-            <div class="col-lg-2">
-                <label for="inputAmount">Quantidade:</label>
-                <input type="number" class="form-control" name="amount" id="inputAmount" placeholder="Quantidade">
-            </div>
-
-
-        <button type="submit" class="btn btn-default w-100 mt-3" name="form1">Incluir produto</button>
-
-    </form>
-</div>
-
-<div class="border m-3 p-5 bg-light form-content">
-
-    <form method="POST" action="/save-client">
-
-        <?php require_once __DIR__ . '/../../includes/alert-message.php'; ?>
-
-        <h4 class="text-center mb-3"> PEÇAS NÃO CADASTRADAS NO SISTEMA </h4>
-        <p style="font-size: 12px">Cadastre-se aqui produtos e peças que vão entrar para o orçamento, porem não
-            serão registradas no sistema.
-            Exemplo: Peças de concessionaria, peças que o cliente trouxe por conta própria etc.
-        </p>
-
-        <div class="form-row">
-
-            <div class="form-group col-lg-6">
-                <label for="inputDescription">Descrição produto:</label>
-                <input type="text" class="form-control" id="inputDescription"
-                       placeholder="Digite o nome do produto">
-            </div>
-
-            <div class="form-group col-lg-4">
-                <label for="inputValue">Valor produto:</label>
-                <input type="text" class="form-control" id="inputValue" placeholder="R$ 0,00">
-            </div>
-
-            <div class="form-group col-lg-2">
-                <label for="inputAmount">Quantidade:</label>
-                <input type="number" class="form-control" id="inputAmount" placeholder="Quantidade">
-            </div>
-
+        <div class="col-lg-2">
+            <label for="inputAmount">Quantidade:</label>
+            <input type="number" class="form-control" name="amount" id="inputAmount" placeholder="Quantidade">
         </div>
 
         <button type="submit" class="btn btn-default w-100 mt-3">Incluir produto</button>

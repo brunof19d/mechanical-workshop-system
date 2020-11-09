@@ -73,6 +73,14 @@ class OrderServiceRepository implements OrderServiceInterface
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function bringProductsExternal(OrderService $order): array
+    {
+        $sql = "SELECT * FROM products_external_by_order WHERE id_os = :id_os";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute( [ ':id_os' => $order->getIdOrder() ]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function createProductByOrder(OrderService $order, Product $product): void
     {
         $sql = "INSERT INTO products_by_order (id_os, id_refproduct, amount, value_total) 
@@ -87,11 +95,48 @@ class OrderServiceRepository implements OrderServiceInterface
         ]);
     }
 
+    public function createExternalProducts(OrderService $order, Product $product): void
+    {
+        $sql = "INSERT INTO products_external_by_order (id_os, description, amount, value_unit, value_total) 
+            VALUES (:id_os, :description, :amount, :value_unit, :value_total)
+        ";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([
+            ':id_os'            => $order->getIdOrder(),
+            ':description'      => $product->getDescription(),
+            ':amount'           => $product->getAmount(),
+            ':value_unit'       => $product->getValue(),
+            ':value_total'      => $product->getValueTotal()
+        ]);
+    }
+
     public function sumTotalProducts(OrderService $order)
     {
         $sql = "SELECT SUM(value_total) FROM products_by_order WHERE id_os = :id_os";
         $statement = $this->pdo->prepare($sql);
         $statement->execute([':id_os' => $order->getIdOrder()]);
         return $statement->fetch(PDO::FETCH_COLUMN);
+    }
+
+    public function sumTotalExternalProducts(OrderService $order)
+    {
+        $sql = "SELECT SUM(value_total) FROM products_external_by_order WHERE id_os = :id_os";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':id_os' => $order->getIdOrder()]);
+        return $statement->fetch(PDO::FETCH_COLUMN);
+    }
+
+    public function removeProductsByOrder(Product $product): void
+    {
+        $sql = "DELETE FROM products_by_order WHERE idproducts_by_order = :idproducts_by_order";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':idproducts_by_order' => $product->getIdProduct()]);
+    }
+
+    public function removeProductsExternal(Product $product): void
+    {
+        $sql = "DELETE FROM products_external_by_order WHERE id = :id";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':id' => $product->getIdProduct()]);
     }
 }
