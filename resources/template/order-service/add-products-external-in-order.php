@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../includes/content.php';
 
         <div class="d-flex justify-content-center align-items-center">
             <h4 class="text-center mr-2"> PEÇAS NÃO CADASTRADAS NO SISTEMA </h4>
-            <a href="" class="btn btn-danger btn-sm ml-2">Voltar</a>
+            <a href="/order?id=<?= $idOrder; ?>" class="btn btn-danger btn-sm ml-2">Voltar</a>
         </div>
 
         <p style="font-size: 12px">Cadastre-se aqui produtos e peças que vão entrar para o orçamento, porem não

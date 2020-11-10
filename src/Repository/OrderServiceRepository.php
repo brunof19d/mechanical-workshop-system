@@ -32,13 +32,23 @@ class OrderServiceRepository implements OrderServiceInterface
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function bringOrder(OrderService $oder): array
+    public function bringNotesOrder(OrderService $order): array
+    {
+        $sql = "SELECT * FROM order_service WHERE id_order = :id_order";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([':id_order' => $order->getIdOrder()]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function bringOrder(OrderService $order): array
     {
         $sql = "SELECT * FROM order_service
+            INNER JOIN client ON order_service.id_client = client.id
+            INNER JOIN motorcycle ON order_service.id_motorcycle = motorcycle.id_motorcycle
             WHERE id_order = :id_order
         ";
         $statement = $this->pdo->prepare($sql);
-        $statement->execute([':id_order' => $oder->getIdOrder()]);
+        $statement->execute([':id_order' => $order->getIdOrder()]);
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -107,6 +117,25 @@ class OrderServiceRepository implements OrderServiceInterface
             ':amount'           => $product->getAmount(),
             ':value_unit'       => $product->getValue(),
             ':value_total'      => $product->getValueTotal()
+        ]);
+    }
+
+    public function updateNotes(OrderService $order): void
+    {
+        $sql = "UPDATE order_service SET
+            client_reported = :client_reported,
+            description_motorcycle = :description_motorcycle,
+            problem_found = :problem_found,
+            executed_services = :executed_services
+            WHERE id_order = :id_order
+        ";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([
+            ':client_reported' => $order->getClientReported(),
+            ':description_motorcycle' => $order->getDescriptionMotorcycle(),
+            ':problem_found' => $order->getProblemFound(),
+            ':executed_services' => $order->getExecutedServices(),
+            ':id_order'    => $order->getIdOrder()
         ]);
     }
 

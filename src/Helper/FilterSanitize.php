@@ -8,7 +8,7 @@ use Exception;
 
 class FilterSanitize
 {
-    public function string(string $var, string $messageThrow)
+    public function string($var, string $messageThrow)
     {
         $filter = filter_var($var, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
         if (!$filter) throw new Exception($messageThrow);

@@ -27,12 +27,14 @@ return [
     '/remove-motorcycle'    => \App\Controller\Motorcycle\RemoveMotorcycle::class,
 
     // Order of service section
+    '/order'                => \App\View\OrderService\Order::class,
+    '/table-order'          => \App\View\OrderService\TableServiceOrders::class,
     '/new-os-step1'         => \App\View\OrderService\NewOrderStepOne::class,
     '/new-os-step2'         => \App\View\OrderService\NewOrderStepTwo::class,
     '/new-os-step3'         => \App\View\OrderService\NewOrderStepThree::class,
+    '/notes-order'          => \App\View\OrderService\UpdateNotes::class,
+    '/update-note'          => \App\Controller\OrderService\ControllerNotes::class,
     '/save-order-service'   => \App\Controller\OrderService\ControllerOrderService::class,
-    '/order'                => \App\View\OrderService\Order::class,
-    '/table-order'          => \App\View\OrderService\TableServiceOrders::class,
     '/products-by-order'    => \App\View\Products\AddProductsInOrder::class,
     '/products-external'    => \App\View\Products\AddProductsExternalOrder::class,
     '/save-products-order'  => \App\Controller\OrderService\ControllerProductsByOrder::class,

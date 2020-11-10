@@ -8,9 +8,11 @@ class OrderService
 {
     private int $idOrder;
     private int $status;
-    private string $clientReported;
-    private string $descriptionMotorcycle;
+    private ?string $clientReported = null;
+    private ?string $descriptionMotorcycle = null;
     private string $dateAdded;
+    private ?string $problemFound = null;
+    private ?string $executedServices = null;
 
     public function getIdOrder(): int
     {
@@ -60,5 +62,25 @@ class OrderService
     public function setDateAdded(string $dateAdded): void
     {
         $this->dateAdded = $dateAdded;
+    }
+
+    public function getProblemFound(): string
+    {
+        return $this->problemFound;
+    }
+
+    public function setProblemFound(string $problemFound): void
+    {
+        $this->problemFound = $problemFound;
+    }
+
+    public function getExecutedServices(): string
+    {
+        return $this->executedServices;
+    }
+
+    public function setExecutedServices(string $executedServices): void
+    {
+        $this->executedServices = $executedServices;
     }
 }
