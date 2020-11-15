@@ -1,8 +1,11 @@
 <?php
+
 require_once __DIR__ . '/../../includes/header.php';
 require __DIR__ . '/../../includes/content.php';
 require_once __DIR__ . '/../../includes/alert-message.php';
+
 /** @var \App\View\Client\TableClients $allClients */
+
 ?>
 
 <h4 class="text-center">Tabela com todos clientes registrados no sistema.</h4>
@@ -32,7 +35,7 @@ require_once __DIR__ . '/../../includes/alert-message.php';
                 <a class="btn btn-info" href="/client?id=<?= $client['id']; ?>">Ver Mais</a>
             </td>
             <td style="width: 10%;"  class="text-center">
-                <a class="btn btn-success" href="/motorcycle-client?id=<?= $client['id']; ?>">Ver Detalhes</a>
+                <a class="btn btn-success" href="/motorcycle-client?id=<?= $client['id']; ?>">Detalhes</a>
             </td>
         </tr>
     <?php endforeach; ?>

@@ -31,19 +31,19 @@ class RemoveProduct implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $url = $request->getParsedBody()['url'];
+        $redirect = new Response(200, ['Location' => $url]);
         try {
             $idProduct = $this->sanitize->int($request->getParsedBody()['id'], 'Produto invalido');
             $this->product->setIdProduct($idProduct);
 
             $this->repository->removeProduct($this->product);
+
             $this->alertMessage('success', 'Produto removido com sucesso');
-
-            $url = $request->getParsedBody()['url'];
-
-            return new Response(200, ['Location' => $url]);
+            return $redirect;
         } catch (Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
-            return new Response(302, ['Location' => $url]);
+            return $redirect;
         }
     }
 }

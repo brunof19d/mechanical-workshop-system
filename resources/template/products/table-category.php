@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../includes/content.php';
 require_once __DIR__ . '/../../includes/alert-message.php';
 
 /** @var \App\View\Products\TableCategory $allCategories */
+
 ?>
 <div class="bg-light form-content border p-5">
 

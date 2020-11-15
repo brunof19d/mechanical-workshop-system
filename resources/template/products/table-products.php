@@ -26,8 +26,7 @@ require_once __DIR__ . '/../../includes/alert-message.php';
 </form>
 
 <div class="form-group mt-3">
-    <input type="text" id="filter-table" class="form-control border-dark"
-           placeholder="Digite o nome do produto">
+    <input type="text" id="filter-table" class="form-control border-dark" placeholder="Digite o nome do produto">
 </div>
 
 <table class="table table-bordered table-striped table-responsive-xl border w-100">
@@ -44,14 +43,14 @@ require_once __DIR__ . '/../../includes/alert-message.php';
     <?php foreach ($allProducts as $product): ?>
         <tr class="client">
             <td><?= $product['id_product']; ?></td>
-            <td><?= $product['description']; ?></td>
+            <td class="info-name"><?= $product['description']; ?></td>
             <td><?= $product['name_category']; ?></td>
             <td><b class="mr-1">R$</b><?= $product['value']; ?></td>
             <td class="text-center">
-                <form method="POST" action="/remove-product">
+                <form method="POST" action="/remove-product?id=<?= $product['id_product']; ?>">
                     <input type="hidden" name="url" value="/table-products">
                     <input type="hidden" name="id" value="<?= $product['id_product']; ?>">
-                    <button class="btn btn-danger btn-sm">X</button>
+                    <button type="submit" class="btn btn-danger btn-sm">X</button>
                 </form>
             </td>
         </tr>
@@ -59,4 +58,5 @@ require_once __DIR__ . '/../../includes/alert-message.php';
     </tbody>
 </table>
 
+<script><?php require_once __DIR__ . '/../../../public/assets/js/filterProductTable.js'; ?></script>
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
