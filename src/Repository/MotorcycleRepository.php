@@ -8,6 +8,7 @@ use App\Database\DatabaseConnection;
 use App\Entity\Client\Client;
 use App\Entity\Motorcycle\Motorcycle;
 use App\Entity\Motorcycle\MotorcycleRepositoryInterface;
+use Nyholm\Psr7\Response;
 use PDO;
 
 class MotorcycleRepository implements MotorcycleRepositoryInterface
@@ -81,12 +82,10 @@ class MotorcycleRepository implements MotorcycleRepositoryInterface
         ]);
     }
 
-    public function removeMotorcycle(Motorcycle $motorcycle): void
+    public function removeMotorcycle(Motorcycle $motorcycle)
     {
         $sql = "DELETE FROM motorcycle WHERE id_motorcycle = :id_motorcycle";
         $statement = $this->pdo->prepare($sql);
         $statement->execute([':id_motorcycle' => $motorcycle->getIdMotorcycle()]);
     }
-
-
 }

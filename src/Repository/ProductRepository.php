@@ -47,14 +47,6 @@ class ProductRepository implements CategoryRepositoryInterface, ProductRepositor
         ]);
     }
 
-    public function removeProduct(Product $product): bool
-    {
-        $sql = "DELETE FROM product WHERE id_product = :id_product";
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute([':id_product' => $product->getIdProduct()]);
-        $statement->errorCode();
-    }
-
     public function bringOnlyCategory(CategoryProduct $category): array
     {
         $sql = "SELECT * FROM product 

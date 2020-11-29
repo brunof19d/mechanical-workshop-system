@@ -34,5 +34,5 @@ interface MotorcycleRepositoryInterface
     /**
      * @param Motorcycle $motorcycle
      */
-    public function removeMotorcycle(Motorcycle $motorcycle): void;
+    public function removeMotorcycle(Motorcycle $motorcycle);
 }

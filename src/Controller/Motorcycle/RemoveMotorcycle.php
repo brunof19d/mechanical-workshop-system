@@ -34,11 +34,10 @@ class RemoveMotorcycle implements RequestHandlerInterface
         try {
             $idClient = $this->sanitize->int($_GET['id'], 'ID do cliente invalido');
             $idMotorcycle = $this->sanitize->int($_GET['motorcycle'], 'ID da motocicleta invalido');
-
             $this->motorcycle->setIdMotorcycle($idMotorcycle);
-            $this->alertMessage('success', 'Motocicleta removida com sucesso');
-            $this->motorcycleRepository->removeMotorcycle($this->motorcycle);
 
+            $this->motorcycleRepository->removeMotorcycle($this->motorcycle);
+            $this->alertMessage('success', 'Motocicleta removida com sucesso');
             return new Response(200, ['Location' => "/motorcycle-client?id=$idClient"]);
         } catch (Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());

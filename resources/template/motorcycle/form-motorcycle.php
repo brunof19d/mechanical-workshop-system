@@ -16,7 +16,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
         <form method="POST" action="/save-motorcycle">
             <div class="form-row">
                 <!-- License Plate -->
-                <div class="form-group col-md-1">
+                <div class="form-group col-md-2">
                     <label for="licensePlate">Placa<span class="span-required">*</span> </label>
                     <input type="text" class="form-control" id="licensePlate" name="licensePlate"
                            placeholder="XXX-1234" value="<?= $motorcycle['license_plate'] ?? ''; ?>">
@@ -28,7 +28,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                            placeholder="Exemplo: Kawasaki" value="<?= $motorcycle['brand'] ?? ''; ?>">
                 </div>
                 <!-- Model -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="modelMotorcycle"> Modelo <span class="span-required">*</span></label>
                     <input type="text" class="form-control" id="modelMotorcycle" name="modelMotorcycle"
                            placeholder="Exemplo: CBR 600." value="<?= $motorcycle['model'] ?? ''; ?>">
@@ -67,7 +67,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
 
             <input type="hidden" name="idClient" value="<?= $_GET['id']; ?>">
             <input type="hidden" name="idMotorcycle" value="<?= $_GET['motorcycle'] ?? ''; ?>">
-            <input type="hidden" name="url" value="<?= $currentUrl; ?>"
+            <input type="hidden" name="url" value="<?= $currentUrl; ?>">
 
             <!-- Button -->
             <button type="submit" class="btn btn-default w-100" name="<?= $attributeButton; ?>">

@@ -37,8 +37,6 @@ class RemoveProduct implements RequestHandlerInterface
             $idProduct = $this->sanitize->int($request->getParsedBody()['id'], 'Produto invalido');
             $this->product->setIdProduct($idProduct);
 
-            $this->repository->removeProduct($this->product);
-
             $this->alertMessage('success', 'Produto removido com sucesso');
             return $redirect;
         } catch (Exception $error) {

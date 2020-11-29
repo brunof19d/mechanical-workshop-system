@@ -36,7 +36,6 @@ require_once __DIR__ . '/../../includes/alert-message.php';
         <th>Descrição Produto</th>
         <th>Categoria</th>
         <th>Preço unitario</th>
-        <th class="text-center">#</th>
     </tr>
     </thead>
     <tbody>
@@ -46,13 +45,6 @@ require_once __DIR__ . '/../../includes/alert-message.php';
             <td class="info-name"><?= $product['description']; ?></td>
             <td><?= $product['name_category']; ?></td>
             <td><b class="mr-1">R$</b><?= $product['value']; ?></td>
-            <td class="text-center">
-                <form method="POST" action="/remove-product?id=<?= $product['id_product']; ?>">
-                    <input type="hidden" name="url" value="/table-products">
-                    <input type="hidden" name="id" value="<?= $product['id_product']; ?>">
-                    <button type="submit" class="btn btn-danger btn-sm">X</button>
-                </form>
-            </td>
         </tr>
     <?php endforeach; ?>
     </tbody>

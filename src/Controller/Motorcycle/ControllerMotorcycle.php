@@ -67,11 +67,11 @@ class ControllerMotorcycle implements RequestHandlerInterface
             $this->motorcycle->setModelYear($modelYear);
 
             // ID Client
-            $idClient = $this->sanitize->int($data['idClient'], 'ID Invalido');
+            $idClient = $this->sanitize->int($data['idClient'], 'ID Cliente Invalido');
             $this->client->setId($idClient);
 
             // ID Motorcycle
-            if ($data['idMotorcycle'] !== NULL) {
+            if ($data['idMotorcycle'] !== NULL && $data['idMotorcycle'] !== '') {
                 $idMotorcycle = $this->sanitize->int($data['idMotorcycle'], 'ID Invalido');
                 $this->motorcycle->setIdMotorcycle($idMotorcycle);
             }
