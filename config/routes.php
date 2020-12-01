@@ -1,21 +1,31 @@
 <?php
 
+use App\Controller\ControllerLogin;
+use App\Controller\Logout;
+use App\View\Client\ClientPage;
+use App\View\Client\FormCreateClient;
+use App\View\Client\FormUpdateClient;
+use App\View\Client\TableClients;
+use App\View\Dashboard;
+use App\View\Login;
+
+
 return [
 
     // Login Section
-    '/login'        => \App\View\Login::class,
-    '/make-login'   => \App\Controller\ControllerLogin::class,
-    '/logout'       => \App\View\Logout::class,
+    '/login'        => Login::class,
+    '/make-login'   => ControllerLogin::class,
+    '/logout'       => Logout::class,
 
     // Templates Section
-    '/dashboard'    => \App\View\Dashboard::class,
+    '/dashboard'    => Dashboard::class,
 
     // Client section
-    '/client'           => \App\View\Client\ClientPage::class,
-    '/table-client'     => \App\View\Client\TableClients::class,
+    '/client'           => ClientPage::class,
+    '/client/add'       => FormCreateClient::class,
+    '/client/update'    => FormUpdateClient::class,
+    '/client/table'     => TableClients::class,
     '/verify-identity'  => \App\View\Client\VerifyIdentity::class,
-    '/new-client'       => \App\View\Client\FormCreateClient::class,
-    '/update-client'    => \App\View\Client\FormUpdateClient::class,
     '/save-client'      => \App\Controller\Client\ControllerClient::class,
 
 

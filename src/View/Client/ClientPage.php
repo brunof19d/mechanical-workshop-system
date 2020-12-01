@@ -1,10 +1,11 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\View\Client;
 
-
-use App\Entity\Client\Client;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
 use App\Helper\RenderHtml;
@@ -21,32 +22,31 @@ class ClientPage implements RequestHandlerInterface
     use FlashMessage;
 
     private ClientRepository $repository;
-    private Client $client;
     private FilterSanitize $sanitize;
 
-    public function __construct(ClientRepository $repository, Client $client, FilterSanitize $sanitize)
+    public function __construct(ClientRepository $repository, FilterSanitize $sanitize)
     {
         $this->repository = $repository;
-        $this->client = $client;
         $this->sanitize = $sanitize;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         try {
-            $id = $_GET['id'];
-            $this->sanitize->int($id, 'ID invalido');
-            $this->client->setId($id);
+            $id = $this->sanitize
+                ->int($request->getQueryParams()['id'], 'ID Cliente invalido');
+
+            $repository = $this->repository
+                ->findOneBy($id);
 
             $template = $this->render('client/client.php', [
-                'title' => 'Dados cliente',
-                'client' => $this->repository->bringClient($this->client)
+                'title' => 'Dados Cliente',
+                'client' => $repository
             ]);
 
             return new Response(200, [], $template);
-
-        } catch ( Exception $error ) {
-            echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
+        } catch (Exception $error) {
+            $this->alertMessage('danger', $error->getMessage());
             return new Response(302, ['Location' => '/table-client']);
         }
 

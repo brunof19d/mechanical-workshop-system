@@ -7,14 +7,16 @@ header {
     align-items: center;
 }
 
+/* CLASS BOOTSTRAP CHANGES */
 
-footer {
+.dropdown-item {
+    margin-bottom: 10px;
+}
+
+.dropdown-item:hover {
+    margin-bottom: 10px;
+    background-color: #343a40;
     color: white;
-    text-align: center;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 /* Class */
@@ -26,9 +28,26 @@ footer {
     padding: 50px;
 }
 
+.content {
+    padding: 50px 50px 50px 50px;
+}
+
+.itemClient {
+    margin-right: 10px;
+    border-bottom: 1px solid #343a40;
+}
+
+
+/* BUTTONS */
+
 .btn-rollback {
     background-color: #0056b3;
     border-radius: 30px;
+    color: white;
+}
+
+.btn-rollback:hover {
+    background-color: darkslateblue;
     color: white;
 }
 
@@ -36,6 +55,23 @@ footer {
     background-color: lightsteelblue;
     border-radius: 30px;
 }
+
+.btn-info {
+    border-radius: 30px;
+}
+
+.btn-update {
+    background-color: darkslategrey;
+    border-radius: 30px;
+    color: white;
+}
+
+.btn-update:hover {
+    background-color: lightslategrey;
+    color: white;
+}
+
+/* END BUTTONS */
 
 .name-menu {
     font-family: "Comic Sans MS", sans-serif;
@@ -50,11 +86,6 @@ footer {
 
 .span-required {
     color: red;
-}
-
-.nav-link:hover {
-    background-color: #1b1e21;
-    border-radius: 15px;
 }
 
 .arrow {

@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../includes/header.php';
-require_once __DIR__ . '/../../includes/content.php';
+require_once __DIR__ . '/../../includes/navbar.php';
 require_once __DIR__ . '/../../includes/alert-message.php';
 
 /** @var \App\View\Products\TableCategory $allCategories */

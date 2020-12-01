@@ -1,11 +1,14 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\Controller\Client;
 
-
 use App\Entity\Address\Address;
 use App\Entity\Client\Client;
+use App\Entity\Person\Person;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
 use App\Helper\VerifyDataset;
@@ -25,14 +28,19 @@ class ControllerClient implements RequestHandlerInterface
     private FilterSanitize $sanitize;
     private VerifyDataset $verifyDataset;
     private Address $address;
+    private Person $person;
 
-    public function __construct(Client $client, ClientRepository $repository, FilterSanitize $sanitize, Address $address, VerifyDataset $dataset)
+    public function __construct(Client $client,
+                                ClientRepository $repository,
+                                FilterSanitize $sanitize,
+                                Person $person,
+                                Address $address)
     {
         $this->client = $client;
         $this->repository = $repository;
         $this->sanitize = $sanitize;
+        $this->person = $person;
         $this->address = $address;
-        $this->verifyDataset = $dataset;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -40,76 +48,80 @@ class ControllerClient implements RequestHandlerInterface
         try {
             $data = $request->getParsedBody();
 
-            /* Input First Name */
-            $firstName = $this->sanitize->string($data['first_name'], 'Campo Nome invalido');
-            $this->client->setFirstName($firstName);
+            $identification = $this->sanitize
+                ->string($data['identification'], 'Campo CPF / CNPJ invalido');
 
-            /* Input Last Name */
-            $lastName = $this->sanitize->string($data['last_name'], 'Campo Sobrenome invalido');
-            $this->client->setLastName($lastName);
+            $name = $this->sanitize
+                ->string($data['name'], 'Campo Nome / Razão Social invalido');
 
-            /* CPF / CNJPJ */
-            $identification = $this->sanitize->string($data['cpf_cnpj'], 'Campo CPF / CNPJ invalido');
-            $this->client->setIdentification($identification);
+            $phoneOne = $this->sanitize
+                ->phone($data['phone_one'], 'Campo Telefone invalido');
 
-            /* Phone 1 */
-            $phoneOne = $this->sanitize->string($data['phone'], 'Campo Telefone 1 invalido');
-            $phoneOneFormat = $this->verifyDataset->formatPhone($phoneOne);
-            $this->client->setPhoneOne($phoneOneFormat);
+            $phoneTwo = $this->sanitize
+                ->phone($data['phone_two'], 'Campo Telefone 2 invalido');
 
-            /* Phone 2 */
-            $phoneTwo = $data['phone_two'];
-            if (!empty($phoneTwo)) {
-                $phoneTwo = $this->sanitize->string($phoneTwo, 'Campo Telefone 2 invalido');
-                $phoneTwo = $this->verifyDataset->formatPhone($phoneTwo);
-            }
-            $this->client->setPhoneTwo($phoneTwo);
+            $email = $this->sanitize
+                ->email($data['email'], 'Campo E-mail invalido');
 
-            /* Email */
-            $email = $this->sanitize->email($data['email'], 'Campo E-mail invalido');
-            $this->client->setEmail($email);
+            $cep = $this->sanitize
+                ->cep($data['cep'], 'Campo CEP invalido');
 
-            /* CEP */
-            $cep = $this->sanitize->string($data['cep'], 'Campo CEP invalido');
-            $cepFormat = $this->verifyDataset->formatCep($cep);
-            $this->address->setCep($cepFormat);
+            $street = $this->sanitize
+                ->string($data['address'], 'Campo Endereço invalido');
 
-            /* Address */
-            $address = $this->sanitize->string($data['endereco'], 'Campo invalido');
-            $this->address->setAddress($address);
+            $numberAddress = $this->sanitize
+                ->int($data['number'], 'Campo Nùmero endereço invalido');
 
-            /* Number Address */
-            $numberAddress = $this->sanitize->int($data['numero'], 'Campo número invalido');
-            $this->address->setNumberAddress($numberAddress);
+            $complementAddress = $this->sanitize
+                ->string($data['complement'], 'Campo complemento do endereço invalido');
 
-            /* Complement Address */
-            $complement = $data['complemento'];
-            if (!empty($complement)) {
-                $complement = $this->sanitize->string($data['complemento'], 'Campo Complemento invalido');
-            }
-            $this->address->setComplementAddress($complement);
+            $city = $this->sanitize
+                ->string($data['city'], 'Campo Cidade invalido');
 
-            /* City */
-            $city = $this->sanitize->string($data['cidade'], 'Campo Cidade invalido');
-            $this->address->setCity($city);
+            $state = $this->sanitize
+                ->string($data['state'], 'Campo Estado invalido');
 
-            /* State */
-            $state = $this->sanitize->string($data['uf'], 'Campo UF invalido');
-            $this->address->setState($state);
+            $person = $this->person
+                ->setIdentification($identification)
+                ->setName($name)
+                ->setPhoneOne($phoneOne)
+                ->setPhoneTwo($phoneTwo)
+                ->setEmail($email);
 
-            if (isset($_POST['update'])) {
-                $this->repository->updateClient($this->client, $this->address);
-                $this->alertMessage('success', 'Cliente atualizado com sucesso');
-                return new Response(200, ['Location' => '/table-client']);
+            $address = $this->address
+                ->setCep($cep)
+                ->setStreet($street)
+                ->setNumber($numberAddress)
+                ->setComplement($complementAddress)
+                ->setCity($city)
+                ->setState($state);
+
+            $this->client
+                ->setPerson($person)
+                ->setAddress($address);
+
+            if (empty($data['id']) === FALSE) {
+                $id = $this->sanitize
+                    ->int($data['id'], 'ID Cliente invalido');
             }
 
-            $this->alertMessage('success', 'Cliente registrado com sucesso');
-            $this->repository->createClient($this->client, $this->address);
 
-            return new Response(200, ['Location' => '/table-client']);
+            if ( $id > 0 ) {
+                $this->alertMessage('success', 'Dados atualizados com sucesso');
+                $this->client->setId($id);
+                $this->repository->update($this->client);
+                return new Response(200, ['Location' => "/client?id=$id"]);
+            } else {
+                echo 'nao deu';
+                exit();
+//                $this->alertMessage('success', 'Cliente registrado com sucesso');
+//                $this->repository->save($this->client);
+            }
+
+            return new Response(200, ['Location' => '/client/table']);
         } catch (Exception $error) {
             echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
-            return new Response(302, ['Location' => $data['url']]);
+            return new Response(302, ['Location' => '/client/update?id=9']);
         }
     }
 }

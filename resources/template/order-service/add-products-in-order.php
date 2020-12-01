@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../includes/header.php';
-require_once __DIR__ . '/../../includes/content.php';
+require_once __DIR__ . '/../../includes/navbar.php';
 
 /** @var \App\View\Products\AddProductsInOrder $idOrder */
 /** @var \App\View\Products\AddProductsInOrder $allProducts */

@@ -1,8 +1,10 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\View;
-
 
 use App\Helper\RenderHtml;
 use Nyholm\Psr7\Response;
@@ -19,6 +21,7 @@ class Dashboard implements RequestHandlerInterface
         $template = $this->render('dashboard.php', [
             'title' => 'Dashboard'
         ]);
+
         return new Response(200, [], $template);
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
-namespace App\View;
-
+namespace App\Controller;
 
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

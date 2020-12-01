@@ -1,15 +1,17 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\Entity\Address;
-
 
 class Address
 {
     private string $cep;
-    private string $address;
-    private int $numberAddress;
-    private ?string $complementAddress = null;
+    private string $street;
+    private int $number;
+    private ?string $complement;
     private string $city;
     private string $state;
 
@@ -18,39 +20,43 @@ class Address
         return $this->cep;
     }
 
-    public function setCep(string $cep): void
+    public function setCep(string $cep): Address
     {
         $this->cep = $cep;
+        return $this;
     }
 
-    public function getAddress(): string
+    public function getStreet(): string
     {
-        return $this->address;
+        return $this->street;
     }
 
-    public function setAddress(string $address): void
+    public function setStreet(string $street): Address
     {
-        $this->address = $address;
+        $this->street = $street;
+        return $this;
     }
 
-    public function getNumberAddress(): int
+    public function getNumber(): int
     {
-        return $this->numberAddress;
+        return $this->number;
     }
 
-    public function setNumberAddress(int $numberAddress): void
+    public function setNumber(int $number): Address
     {
-        $this->numberAddress = $numberAddress;
+        $this->number = $number;
+        return $this;
     }
 
-    public function getComplementAddress(): ?string
+    public function getComplement(): ?string
     {
-        return $this->complementAddress;
+        return $this->complement;
     }
 
-    public function setComplementAddress(?string $complementAddress): void
+    public function setComplement(?string $complement): Address
     {
-        $this->complementAddress = $complementAddress;
+        $this->complement = $complement;
+        return $this;
     }
 
     public function getCity(): string
@@ -58,9 +64,10 @@ class Address
         return $this->city;
     }
 
-    public function setCity(string $city): void
+    public function setCity(string $city): Address
     {
         $this->city = $city;
+        return $this;
     }
 
     public function getState(): string
@@ -68,9 +75,9 @@ class Address
         return $this->state;
     }
 
-    public function setState(string $state): void
+    public function setState(string $state): Address
     {
-        if (strlen($state) > 2) throw new \Exception('Estado invalido');
         $this->state = $state;
+        return $this;
     }
 }

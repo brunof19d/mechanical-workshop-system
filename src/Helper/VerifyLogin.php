@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
+
 namespace App\Helper;
 
 use App\Database\DatabaseConnection;

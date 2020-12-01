@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../includes/header.php';
-require __DIR__ . '/../../includes/content.php';
+require __DIR__ . '/../../includes/navbar.php';
 
 /** @var \App\View\OrderService\NewOrderStepThree $dataClient */
 /** @var \App\View\OrderService\NewOrderStepThree $dataMotorcycle */

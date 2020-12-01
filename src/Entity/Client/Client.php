@@ -1,100 +1,62 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\Entity\Client;
 
-
-use App\Helper\ValidCnpj;
-use App\Helper\ValidCpf;
-use Exception;
+use App\Entity\Address\Address;
+use App\Entity\Person\Person;
 
 class Client
 {
     private int $id;
-    private string $firstName;
-    private ?string $lastName = null;
-    private string $identification;
-    private string $phoneOne;
-    private ?string $phoneTwo = null;
-    private ?string $email = null;
+    private Person $person;
+    private Address $address;
+    private string $date;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(int $id): Client
     {
         $this->id = $id;
+        return $this;
     }
 
-    public function getIdentification(): string
+    public function getPerson(): Person
     {
-        return $this->identification;
+        return $this->person;
     }
 
-    public function setIdentification(string $identification): void
+    public function setPerson(Person $person): Client
     {
-        $validateCnpj = new ValidCnpj();
-        $validateCpf = new ValidCpf();
-        if (strlen($identification) === 18) {
-            if (!$validateCnpj->verify($identification)) throw new Exception('Número de CNPJ invalido');
-        } elseif (strlen($identification) === 14) {
-            if (!$validateCpf->verify($identification)) throw new Exception('Número de CPF invalido');
-        } else {
-            throw new Exception('Campo CPF / CNPJ invalido');
-        }
-        $this->identification = $identification;
+        $this->person = $person;
+        return $this;
     }
 
-    public function getFirstName(): string
+    public function getAddress(): Address
     {
-        return $this->firstName;
+        return $this->address;
     }
 
-    public function setFirstName(string $firstName): void
+    public function setAddress(Address $address): Client
     {
-        $this->firstName = $firstName;
+        $this->address = $address;
+        return $this;
     }
 
-    public function getLastName(): string
+    public function getDate(): string
     {
-        return $this->lastName;
+        return $this->date;
     }
 
-    public function setLastName(string $lastName): void
+    public function setDate(string $date): Client
     {
-        $this->lastName = $lastName;
-    }
-
-    public function getPhoneOne(): string
-    {
-        return $this->phoneOne;
-    }
-
-    public function setPhoneOne(string $phoneOne): void
-    {
-        $this->phoneOne = $phoneOne;
-    }
-
-    public function getPhoneTwo(): ?string
-    {
-        return $this->phoneTwo;
-    }
-
-
-    public function setPhoneTwo(?string $phoneTwo): void
-    {
-        $this->phoneTwo = $phoneTwo;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): void
-    {
-        $this->email = $email;
+        $this->date = $date;
+        return $this;
     }
 }
