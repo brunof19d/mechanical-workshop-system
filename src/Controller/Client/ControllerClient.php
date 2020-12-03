@@ -11,13 +11,12 @@ use App\Entity\Client\Client;
 use App\Entity\Person\Person;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
-use App\Helper\VerifyDataset;
 use App\Repository\ClientRepository;
-use Exception;
-use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Exception;
+use Nyholm\Psr7\Response;
 
 class ControllerClient implements RequestHandlerInterface
 {
@@ -26,15 +25,10 @@ class ControllerClient implements RequestHandlerInterface
     private Client $client;
     private ClientRepository $repository;
     private FilterSanitize $sanitize;
-    private VerifyDataset $verifyDataset;
     private Address $address;
     private Person $person;
 
-    public function __construct(Client $client,
-                                ClientRepository $repository,
-                                FilterSanitize $sanitize,
-                                Person $person,
-                                Address $address)
+    public function __construct(Client $client, ClientRepository $repository, FilterSanitize $sanitize, Person $person, Address $address)
     {
         $this->client = $client;
         $this->repository = $repository;
@@ -45,9 +39,28 @@ class ControllerClient implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        try {
-            $data = $request->getParsedBody();
+        $data = $request->getParsedBody(); // Data received from the form.
 
+        // Filter ID IF exists.
+        if (empty($data['id']) === FALSE) {
+            $id = filter_var($data['id'], FILTER_VALIDATE_INT);
+
+            if ($id === FALSE) {
+                $this->alertMessage('danger', 'ID Cliente invalid');
+                return new Response(302, ['Location' => '/client/table']);
+            }
+        }
+
+        // Makes the correct redirection depending on which page the data is coming from.
+        if (isset($data['insert'])) {
+            $redirectError = new Response(302, ['Location' => '/client/add']);
+        } elseif (isset($data['update'])) {
+            $redirectError = new Response(302, ['Location' => "/client/update?id={$id}"]);
+        } else {
+            $redirectError = new Response(302, ['Location' => "/client/table"]);
+        }
+
+        try {
             $identification = $this->sanitize
                 ->string($data['identification'], 'Campo CPF / CNPJ invalido');
 
@@ -57,8 +70,11 @@ class ControllerClient implements RequestHandlerInterface
             $phoneOne = $this->sanitize
                 ->phone($data['phone_one'], 'Campo Telefone invalido');
 
-            $phoneTwo = $this->sanitize
-                ->phone($data['phone_two'], 'Campo Telefone 2 invalido');
+            $phoneTwo = '';
+            if (empty($data['phone_two']) === FALSE) {
+                $phoneTwo = $this->sanitize
+                    ->phone($data['phone_two'], 'Campo Telefone 2 invalido');
+            }
 
             $email = $this->sanitize
                 ->email($data['email'], 'Campo E-mail invalido');
@@ -72,8 +88,11 @@ class ControllerClient implements RequestHandlerInterface
             $numberAddress = $this->sanitize
                 ->int($data['number'], 'Campo Nùmero endereço invalido');
 
-            $complementAddress = $this->sanitize
-                ->string($data['complement'], 'Campo complemento do endereço invalido');
+            $complementAddress = '';
+            if (empty($data['complement']) === FALSE) {
+                $complementAddress = $this->sanitize
+                    ->string($data['complement'], 'Campo complemento do endereço invalido');
+            }
 
             $city = $this->sanitize
                 ->string($data['city'], 'Campo Cidade invalido');
@@ -100,28 +119,27 @@ class ControllerClient implements RequestHandlerInterface
                 ->setPerson($person)
                 ->setAddress($address);
 
-            if (empty($data['id']) === FALSE) {
-                $id = $this->sanitize
-                    ->int($data['id'], 'ID Cliente invalido');
-            }
-
-
-            if ( $id > 0 ) {
+            if ($id > 0) {
                 $this->alertMessage('success', 'Dados atualizados com sucesso');
-                $this->client->setId($id);
-                $this->repository->update($this->client);
-                return new Response(200, ['Location' => "/client?id=$id"]);
-            } else {
-                echo 'nao deu';
-                exit();
-//                $this->alertMessage('success', 'Cliente registrado com sucesso');
-//                $this->repository->save($this->client);
+
+                $this->client
+                    ->setId($id);
+
+                $this->repository
+                    ->update($this->client);
+
+                return new Response(200, ['Location' => "/client?id={$id}"]);
             }
+
+            $this->alertMessage('success', 'Cliente registrado com sucesso');
+            $this->repository
+                ->save($this->client);
 
             return new Response(200, ['Location' => '/client/table']);
         } catch (Exception $error) {
-            echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
-            return new Response(302, ['Location' => '/client/update?id=9']);
+            $this->alertMessage('danger', $error->getMessage());
+
+            return $redirectError;
         }
     }
 }

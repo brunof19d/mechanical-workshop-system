@@ -19,6 +19,7 @@ class FormCreateClient
     {
         $template = $this->render('client/form-client.php', [
             'title' => 'Adicionar cliente',
+            'action' => 'insert'
         ]);
 
         return new Response(200, [], $template);

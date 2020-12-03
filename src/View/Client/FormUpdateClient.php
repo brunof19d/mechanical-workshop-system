@@ -38,7 +38,7 @@ class FormUpdateClient implements RequestHandlerInterface
 
             $template = $this->render('client/form-client.php', [
                 'title' => 'Atualizar cliente',
-                'button' => 'update',
+                'action' => 'update',
                 'client' => $repository
             ]);
 

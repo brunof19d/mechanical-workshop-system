@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../includes/header.php';
 
 /**
  * @var \App\Entity\Client\Client $client
+ * @var \App\View\Client\FormUpdateClient | \App\View\Client\FormCreateClient $action
  */
 
 if (isset($client) === TRUE) {
@@ -48,7 +49,7 @@ if (isset($client) === TRUE) {
                        placeholder="(XX) XXXX-XXXX" value="<?= isset($client) ? $person->getPhoneTwo() : '' ?>">
             </div>
             <div class="form-group col-md-4">
-                <label for="inputEmail">Email</label>
+                <label for="inputEmail">Email <span class="span-required">*</span></label>
                 <input type="email" class="form-control" name="email" id="inputEmail" placeholder="email@email.com"
                        value="<?= isset($client) ? $person->getEmail() : '' ?>">
             </div>
@@ -98,7 +99,7 @@ if (isset($client) === TRUE) {
 
         <input type="hidden" name="id" value="<?= isset($client) ? $client->getId() : ''; ?>">
 
-        <button type="submit" class="btn btn-default w-100 mt-3">Salvar</button>
+        <button type="submit" name="<?= $action; ?>" class="btn btn-default w-100 mt-3">Salvar</button>
 
     </form>
 
