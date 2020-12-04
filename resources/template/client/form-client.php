@@ -27,7 +27,7 @@ if (isset($client) === TRUE) {
             </div>
             <div class="form-group col-md-5">
                 <label for="name">Nome / Razão Social <span class="span-required">*</span></label>
-                <input type="text" class="form-control" placeholder="Digite o (Nome/Razão Social)"
+                <input type="text" class="form-control" placeholder="Digite o (Nome/Razão Social)" maxlength="45"
                        name="name" id="name" value="<?= isset($client) ? $person->getName() : '' ?>">
             </div>
         </div>
@@ -47,7 +47,7 @@ if (isset($client) === TRUE) {
             <div class="form-group col-md-4">
                 <label for="inputEmail">Email <span class="span-required">*</span></label>
                 <input type="email" class="form-control" name="email" id="inputEmail" placeholder="email@email.com"
-                       value="<?= isset($client) ? $person->getEmail() : '' ?>">
+                       value="<?= isset($client) ? $person->getEmail() : '' ?>" maxlength="50">
             </div>
         </div>
         <!-- End Contact -->
@@ -57,24 +57,24 @@ if (isset($client) === TRUE) {
             <div class="form-group col-sm-2">
                 <label for="cep">CEP <span class="span-required">*</span></label>
                 <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-100"
-                       value="<?= isset($client) ? $address->getCep() : '' ?>">
+                       value="<?= isset($client) ? $address->getCep() : '' ?>" maxlength="15">
             </div>
 
             <div class="form-group col-sm-4">
                 <label for="address">Endereço <span class="span-required">*</span></label>
                 <input type="text" class="form-control" id="address" name="address" placeholder="Digite o endereço"
-                       value="<?= isset($client) ? $address->getStreet() : '' ?>">
+                       value="<?= isset($client) ? $address->getStreet() : '' ?>" maxlength="55">
             </div>
 
             <div class="form-group col-sm-1">
                 <label for="number">Número <span class="span-required">*</span></label>
                 <input type="text" class="form-control" id="number" name="number" placeholder="Número"
-                       value="<?= isset($client) ? $address->getNumber() : '' ?>">
+                       value="<?= isset($client) ? $address->getNumber() : '' ?>" maxlength="6">
             </div>
 
             <div class="form-group col-sm-4">
                 <label for="complement">Complemento</label>
-                <input type="text" class="form-control" id="complement" name="complement"
+                <input type="text" class="form-control" id="complement" name="complement" maxlength="45"
                        placeholder="Ex: Apto, Empresa, hotel etc."
                        value="<?= isset($client) ? $address->getComplement() : '' ?>">
             </div>
@@ -84,13 +84,13 @@ if (isset($client) === TRUE) {
             <div class="form-group col-sm-4">
                 <label for="neighborhood">Bairro <span class="span-required">*</span></label>
                 <input type="text" class="form-control" id="neighborhood" name="neighborhood" placeholder="Digite o bairro"
-                       value="<?= isset($client) ? $address->getNeighborhood() : '' ?>">
+                       value="<?= isset($client) ? $address->getNeighborhood() : '' ?>" maxlength="80">
             </div>
 
             <div class="form-group col-sm-4">
                 <label for="city">Cidade <span class="span-required">*</span></label>
                 <input type="text" class="form-control" id="city" name="city" placeholder="Digite a cidade"
-                       value="<?= isset($client) ? $address->getCity() : '' ?>">
+                       value="<?= isset($client) ? $address->getCity() : '' ?>" maxlength="45">
             </div>
 
             <div class="form-group col-sm-1">

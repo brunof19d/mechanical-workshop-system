@@ -11,6 +11,7 @@ use App\Entity\Client\Client;
 use App\Entity\Person\Person;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
+use App\Helper\Identification\CheckID;
 use App\Repository\ClientRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -27,14 +28,21 @@ class ControllerClient implements RequestHandlerInterface
     private FilterSanitize $sanitize;
     private Address $address;
     private Person $person;
+    private CheckID $checkId;
 
-    public function __construct(Client $client, ClientRepository $repository, FilterSanitize $sanitize, Person $person, Address $address)
+    public function __construct(Client $client,
+                                ClientRepository $repository,
+                                FilterSanitize $sanitize,
+                                Person $person,
+                                Address $address,
+                                CheckID $checkId)
     {
         $this->client = $client;
         $this->repository = $repository;
         $this->sanitize = $sanitize;
         $this->person = $person;
         $this->address = $address;
+        $this->checkId = $checkId;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -63,6 +71,13 @@ class ControllerClient implements RequestHandlerInterface
         try {
             $identification = $this->sanitize
                 ->string($data['identification'], 'Campo CPF / CNPJ invalido');
+
+            $identification = str_replace([".", '-', '/'], "", $identification);
+
+            $checkIdentification = $this->checkId->verify($identification);
+            if ($checkIdentification === FALSE) {
+                throw new Exception('CPF / CNPJ Invalido');
+            }
 
             $name = $this->sanitize
                 ->string($data['name'], 'Campo Nome / Razão Social invalido');
@@ -102,6 +117,11 @@ class ControllerClient implements RequestHandlerInterface
 
             $state = $this->sanitize
                 ->string($data['state'], 'Campo Estado invalido');
+
+            if (strlen($state) > 2) {
+                throw new Exception('Estado somente pode representado por uma sigla de duas letras');
+            }
+            $state = strtoupper($state);
 
             $person = $this->person
                 ->setIdentification($identification)

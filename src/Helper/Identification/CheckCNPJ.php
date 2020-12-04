@@ -1,29 +1,36 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
-namespace App\Helper;
+namespace App\Helper\Identification;
 
-
-class ValidCnpj
+class CheckCNPJ
 {
     public function verify(string $cnpj): bool
     {
-        if (!ValidCnpj::isCnpj($cnpj)) return false;
-        $cnpjNumber = ValidCnpj::removeFormat($cnpj);
-        if (!ValidCnpj::verifyNumberEqual($cnpjNumber)) return false;
-        if (!ValidCnpj::validateDigits($cnpjNumber)) return false;
+        if ($this->isCnpj($cnpj) === FALSE) {
+
+            return false;
+
+        } elseif ($this->verifyNumberEqual($cnpj) === FALSE) {
+
+            return false;
+
+        } elseif ($this->validateDigits($cnpj) === FALSE) {
+
+            return false;
+
+        }
+
         return true;
     }
 
     private function isCnpj(string $cnpj)
     {
-        $regexCnpj = "/[0-9]{2}\.[0-9]{3}\.[0-9]{3}\/[0-9]{4}\-[0-9]{2}/";
+        $regexCnpj = "/[0-9]{14}/";
         return preg_match($regexCnpj, $cnpj);
-    }
-
-    private function removeFormat(string $cnpj)
-    {
-        return str_replace([".", "/", "-"], "", $cnpj);
     }
 
     private function verifyNumberEqual(string $cnpj): bool

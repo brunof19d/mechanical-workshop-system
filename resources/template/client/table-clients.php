@@ -18,7 +18,7 @@ require_once __DIR__ . '/../../includes/alert-message.php';
     <thead>
     <tr>
         <th>Nome / Razão Social</th>
-        <th>CPF / CNJPJ </th>
+        <th>Moticicletas</th>
         <th>Contato</th>
         <th class="text-center">Informações</th>
     </tr>
@@ -27,7 +27,7 @@ require_once __DIR__ . '/../../includes/alert-message.php';
         <?php foreach ($allClients as $client): ?>
             <tr class="client">
                 <td class="info-name"><?= $client->getPerson()->getName(); ?></td>
-                <td class="info-id"><?= $client->getPerson()->getIdentification(); ?></td>
+                <td class="info-id">Nenhuma associada</td>
                 <td><?= $client->getPerson()->getPhoneOne(); ?></td>
                 <td class="text-center">
                     <a class="btn btn-info" href="/client?id=<?= $client->getId() ?>">Ver Mais</a>
