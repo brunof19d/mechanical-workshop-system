@@ -36,12 +36,12 @@ if (isset($client) === TRUE) {
         <div class="form-row d-flex justify-content-center">
             <div class="form-group col-md-2">
                 <label for="phone_one">Telefone <span class="span-required">*</span></label>
-                <input type="text" class="form-control telefone" placeholder="(11) 91111-1111" name="phone_one"
+                <input type="text" class="form-control" placeholder="(11) 91111-1111" name="phone_one"
                        id="phone_one" value="<?= isset($client) ? $person->getPhoneOne() : '' ?>">
             </div>
             <div class="form-group col-md-2">
-                <label for="inputPhone2">Telefone 2</label>
-                <input type="text" class="form-control telefone" name="phone_two" id="inputPhone2"
+                <label for="phone_two">Telefone 2</label>
+                <input type="text" class="form-control telefone" name="phone_two" id="phone_two"
                        placeholder="(11) 5555-1111" value="<?= isset($client) ? $person->getPhoneTwo() : '' ?>">
             </div>
             <div class="form-group col-md-4">
@@ -105,8 +105,12 @@ if (isset($client) === TRUE) {
         <button type="submit" name="<?= $action; ?>" class="btn btn-default w-100 mt-3">Salvar</button>
     </form>
 
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/assets/jquery/jquery.mask.min.js"></script>
+    <script src="/assets/js/mask.js"></script>
     <script src="/assets/js/cep.js"></script>
+
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
