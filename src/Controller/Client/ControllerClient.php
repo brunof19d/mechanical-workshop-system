@@ -94,6 +94,9 @@ class ControllerClient implements RequestHandlerInterface
                     ->string($data['complement'], 'Campo complemento do endereço invalido');
             }
 
+            $neighborhood = $this->sanitize
+                ->string($data['neighborhood'], 'Campo Bairro invalido');
+
             $city = $this->sanitize
                 ->string($data['city'], 'Campo Cidade invalido');
 
@@ -112,6 +115,7 @@ class ControllerClient implements RequestHandlerInterface
                 ->setStreet($street)
                 ->setNumber($numberAddress)
                 ->setComplement($complementAddress)
+                ->setNeighborhood($neighborhood)
                 ->setCity($city)
                 ->setState($state);
 

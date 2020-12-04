@@ -36,7 +36,10 @@ $person = $client->getPerson();
 
         <p><strong class="itemClient">Complemento:</strong><?= $address->getComplement(); ?></p>
 
-        <p><strong class="itemClient">Cidade / UF:</strong><?= $address->getCity() . ', ' . $address->getState(); ?></p>
+        <p>
+            <strong class="itemClient">Bairro / Cidade / UF:</strong>
+            <?= $address->getNeighborhood() . ', ' . $address->getCity() . ', ' . $address->getState(); ?>
+        </p>
 
         <p>
             <strong class="itemClient">Registro:</strong> Este cliente foi adicionado ao sistema no dia

@@ -61,10 +61,10 @@ class ClientRepository implements ClientRepositoryInterface
         $address = $client->getAddress();
 
         $sql = "INSERT INTO client (CPF_CNPJ, name, phone_one, phone_two, email, cep, address, number_address, 
-            comp_address, city, state, added) 
+            comp_address, neighborhood, city, state, added) 
             VALUES 
-            (:CPF_CNPJ, :name, :phone_one, :phone_two, :email, :cep, :address, :number_address, :comp_address, :city, 
-             :state, :added)
+            (:CPF_CNPJ, :name, :phone_one, :phone_two, :email, :cep, :address, :number_address, :comp_address, 
+             :neighborhood, :city, :state, :added)
         ";
 
         $statement = $this->pdo->prepare($sql);
@@ -78,6 +78,7 @@ class ClientRepository implements ClientRepositoryInterface
             ':address'          => $address->getStreet(),
             ':number_address'   => $address->getNumber(),
             ':comp_address'     => $address->getComplement(),
+            ':neighborhood'     => $address->getNeighborhood(),
             ':city'             => $address->getCity(),
             ':state'            => $address->getState(),
             ':added'            => $date->format('Y-m-d H:i:s')
@@ -97,6 +98,7 @@ class ClientRepository implements ClientRepositoryInterface
                 address         = :address,
                 number_address  = :number_address,
                 comp_address    = :comp_address,
+                neighborhood    = :neighborhood,                                              
                 city            = :city,
                 state           = :state
             WHERE id = :id
@@ -115,6 +117,7 @@ class ClientRepository implements ClientRepositoryInterface
             ':address'          => $address->getStreet(),
             ':number_address'   => $address->getNumber(),
             ':comp_address'     => $address->getComplement(),
+            ':neighborhood'     => $address->getNeighborhood(),
             ':city'             => $address->getCity(),
             ':state'            => $address->getState(),
             ':id'               => $client->getId()
@@ -176,6 +179,7 @@ class ClientRepository implements ClientRepositoryInterface
             ->setStreet($dataList['address'])
             ->setNumber($dataList['number_address'])
             ->setComplement($dataList['comp_address'])
+            ->setNeighborhood($dataList['neighborhood'])
             ->setCity($dataList['city'])
             ->setState($dataList['state']);
 

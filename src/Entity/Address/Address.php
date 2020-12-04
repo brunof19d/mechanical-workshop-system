@@ -12,6 +12,7 @@ class Address
     private string $street;
     private int $number;
     private ?string $complement;
+    private string $neighborhood;
     private string $city;
     private string $state;
 
@@ -56,6 +57,17 @@ class Address
     public function setComplement(?string $complement): Address
     {
         $this->complement = $complement;
+        return $this;
+    }
+
+    public function getNeighborhood(): string
+    {
+        return $this->neighborhood;
+    }
+
+    public function setNeighborhood(string $neighborhood): Address
+    {
+        $this->neighborhood = $neighborhood;
         return $this;
     }
 
