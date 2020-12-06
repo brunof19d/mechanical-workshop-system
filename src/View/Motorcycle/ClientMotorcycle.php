@@ -1,10 +1,11 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\View\Motorcycle;
 
-
-use App\Entity\Client\Client;
 use App\Helper\FilterSanitize;
 use App\Helper\FlashMessage;
 use App\Helper\RenderHtml;
@@ -19,31 +20,29 @@ class ClientMotorcycle
     use RenderHtml;
     use FlashMessage;
 
-    private Client $client;
     private FilterSanitize $sanitize;
-    private MotorcycleRepository $motorcycleRepository;
+    private MotorcycleRepository $repository;
 
-    public function __construct(MotorcycleRepository $motorcycleRepository, Client $client, FilterSanitize $sanitize)
+    public function __construct(MotorcycleRepository $repository, FilterSanitize $sanitize)
     {
-        $this->motorcycleRepository = $motorcycleRepository;
-        $this->client = $client;
+        $this->repository = $repository;
         $this->sanitize = $sanitize;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         try {
-            $idClient = $this->sanitize->int($_GET['id'], 'ID invalido');
-            $this->client->setId($idClient);
+            $id = $this->sanitize
+                ->int($request->getQueryParams()['id'], 'ID Cliente invalido');
 
-            $template = $this->render('motorcycle/bike-assoc-client.php', [
-                'title'         => 'Motocicletas do cliente',
-                'idClient'      => $this->client->getId(),
-                'allMotorcycle' => $this->motorcycleRepository->bringClientMotorcycle($this->client)
+            $template = $this->render('motorcycle/motorcycle_from_client.php', [
+                'title' => 'Motocicletas do cliente',
+                'motorcycles' => $this->repository->findAllByClient($id),
+                'idClient' => $id
             ]);
             return new Response(200, [], $template);
-        } catch ( Exception $error ) {
-            echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
+        } catch (Exception $error) {
+            $this->alertMessage('danger', $error->getMessage());
             return new Response(302, ['Location' => '/table-client']);
         }
     }

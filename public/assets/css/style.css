@@ -52,7 +52,15 @@ header {
 }
 
 .btn-default {
-    background-color: lightsteelblue;
+    background-color: limegreen;
+    border-radius: 30px;
+}
+
+.btn-default:hover {
+    background-color: seagreen;
+}
+
+.btn-danger {
     border-radius: 30px;
 }
 

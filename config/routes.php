@@ -1,13 +1,18 @@
 <?php
 
+use App\Controller\Client\ControllerClient;
 use App\Controller\ControllerLogin;
 use App\Controller\Logout;
+use App\Controller\Motorcycle\RemoveMotorcycle;
 use App\View\Client\ClientPage;
 use App\View\Client\FormCreateClient;
 use App\View\Client\FormUpdateClient;
 use App\View\Client\TableClients;
 use App\View\Dashboard;
 use App\View\Login;
+use App\View\Motorcycle\ClientMotorcycle;
+use App\View\Motorcycle\FormCreateMotorcycle;
+use App\View\Motorcycle\FormUpdateMotorcycle;
 
 
 return [
@@ -25,16 +30,14 @@ return [
     '/client/add'       => FormCreateClient::class,
     '/client/update'    => FormUpdateClient::class,
     '/client/table'     => TableClients::class,
-    '/verify-identity'  => \App\View\Client\VerifyIdentity::class,
-    '/save-client'      => \App\Controller\Client\ControllerClient::class,
-
+    '/save-client'      => ControllerClient::class,
 
     // Motorcycle section
-    '/motorcycle-client'    => \App\View\Motorcycle\ClientMotorcycle::class,
-    '/new-motorcycle'       => \App\View\Motorcycle\FormCreateMotorcycle::class,
-    '/update-motorcycle'    => \App\View\Motorcycle\FormUpdateMotorcycle::class,
-    '/save-motorcycle'      => \App\Controller\Motorcycle\ControllerMotorcycle::class,
-    '/remove-motorcycle'    => \App\Controller\Motorcycle\RemoveMotorcycle::class,
+    '/client/motorcycle'        => ClientMotorcycle::class,
+    '/client/motorcycle/add'    => FormCreateMotorcycle::class,
+    '/client/motorcycle/update' => FormUpdateMotorcycle::class,
+    '/save-motorcycle'          => \App\Controller\Motorcycle\ControllerMotorcycle::class,
+    '/remove-motorcycle'        => RemoveMotorcycle::class,
 
     // Order of service section
     '/order'                => \App\View\OrderService\Order::class,

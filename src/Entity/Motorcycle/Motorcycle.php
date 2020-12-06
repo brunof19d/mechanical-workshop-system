@@ -1,32 +1,44 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\Entity\Motorcycle;
-
 
 use App\Entity\Client\Client;
 
 class Motorcycle
 {
-    private int $idMotorcycle;
+    private int $id;
+    private Client $client;
     private string $licensePlate;
     private string $brand;
     private string $model;
-    private float $kmMotorcycle;
     private int $engine;
-    private int $manufactureYear;
-    private int $modelYear;
-    private ?string $problemMotorcycle = null;
-    private ?string $description = null;
+    private string $yearManufacture;
+    private string $yearModel;
 
-    public function getIdMotorcycle(): int
+    public function getId(): int
     {
-        return $this->idMotorcycle;
+        return $this->id;
     }
 
-    public function setIdMotorcycle(int $idMotorcycle): void
+    public function setId(int $id): Motorcycle
     {
-        $this->idMotorcycle = $idMotorcycle;
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(Client $client): Motorcycle
+    {
+        $this->client = $client;
+        return $this;
     }
 
     public function getLicensePlate(): string
@@ -34,9 +46,10 @@ class Motorcycle
         return $this->licensePlate;
     }
 
-    public function setLicensePlate(string $licensePlate): void
+    public function setLicensePlate(string $licensePlate): Motorcycle
     {
         $this->licensePlate = $licensePlate;
+        return $this;
     }
 
     public function getBrand(): string
@@ -44,9 +57,10 @@ class Motorcycle
         return $this->brand;
     }
 
-    public function setBrand(string $brand): void
+    public function setBrand(string $brand): Motorcycle
     {
         $this->brand = $brand;
+        return $this;
     }
 
     public function getModel(): string
@@ -54,19 +68,10 @@ class Motorcycle
         return $this->model;
     }
 
-    public function setModel(string $model): void
+    public function setModel(string $model): Motorcycle
     {
         $this->model = $model;
-    }
-
-    public function getKmMotorcycle(): float
-    {
-        return $this->kmMotorcycle;
-    }
-
-    public function setKmMotorcycle(float $kmMotorcycle): void
-    {
-        $this->kmMotorcycle = $kmMotorcycle;
+        return $this;
     }
 
     public function getEngine(): int
@@ -74,50 +79,30 @@ class Motorcycle
         return $this->engine;
     }
 
-    public function setEngine(int $engine): void
+    public function setEngine(int $engine): Motorcycle
     {
         $this->engine = $engine;
+        return $this;
     }
 
-    public function getManufactureYear(): int
+    public function getYearManufacture(): string
     {
-        return $this->manufactureYear;
+        return $this->yearManufacture;
     }
 
-    public function setManufactureYear(int $manufactureYear): void
+    public function setYearManufacture(string $yearManufacture): Motorcycle
     {
-        $this->manufactureYear = $manufactureYear;
+        $this->yearManufacture = $yearManufacture;
+        return $this;
     }
-
-    public function getModelYear(): int
+    public function getYearModel(): string
     {
-        return $this->modelYear;
+        return $this->yearModel;
     }
 
-    public function setModelYear(int $modelYear): void
+    public function setYearModel(string $yearModel): Motorcycle
     {
-        $this->modelYear = $modelYear;
+        $this->yearModel = $yearModel;
+        return $this;
     }
-
-    public function getProblemMotorcycle(): ?string
-    {
-        return $this->problemMotorcycle;
-    }
-
-    public function setProblemMotorcycle(?string $problemMotorcycle): void
-    {
-        $this->problemMotorcycle = $problemMotorcycle;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
-
-
 }

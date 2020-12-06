@@ -13,7 +13,7 @@ $person = $client->getPerson();
     <div class="d-flex justify-content-around align-items-center">
         <a class="btn btn-rollback" href="/client/table">Voltar</a>
         <a class="btn btn-update" href="/client/update?id=<?= $client->getId(); ?>">Atualizar dados</a>
-        <a class="btn btn-info" href="/motorcycle-client?id=<?= $client->getId(); ?>">Ver motos associadas ao cliente</a>
+        <a class="btn btn-info" href="/client/motorcycle?id=<?= $client->getId(); ?>">Ver motos associadas ao cliente</a>
     </div>
 
     <div class=" p-5">

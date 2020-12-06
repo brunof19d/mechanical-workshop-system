@@ -12,27 +12,27 @@ interface MotorcycleRepositoryInterface
      * @param Motorcycle $motorcycle
      * @return array
      */
-    public function bringMotorcycle(Motorcycle $motorcycle): array;
+    public function findOneBy(Motorcycle $motorcycle): Motorcycle;
 
     /**
-     * @param Client $client
+     * @param Motorcycle $motorcycle
      * @return array
      */
-    public function bringClientMotorcycle(Client $client): array;
+    public function findAllByClient(Motorcycle $motorcycle): array;
 
     /**
      * @param Motorcycle $motorcycle
      * @param Client $client
      */
-    public function createMotorcycle(Motorcycle $motorcycle, Client $client): void;
+    public function save(Motorcycle $motorcycle): void;
 
     /**
      * @param Motorcycle $motorcycle
      */
-    public function updateMotorcycle(Motorcycle $motorcycle): void;
+    public function update(Motorcycle $motorcycle): void;
 
     /**
      * @param Motorcycle $motorcycle
      */
-    public function removeMotorcycle(Motorcycle $motorcycle);
+    public function remove(Motorcycle $motorcycle);
 }

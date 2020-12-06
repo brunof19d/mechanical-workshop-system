@@ -1,8 +1,10 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\Controller\Motorcycle;
-
 
 use App\Entity\Client\Client;
 use App\Entity\Motorcycle\Motorcycle;
@@ -16,80 +18,92 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class ControllerMotorcycle implements RequestHandlerInterface
-
 {
     use FlashMessage;
 
     private Motorcycle $motorcycle;
-    private Client $client;
     private FilterSanitize $sanitize;
-    private MotorcycleRepository $motorcycleRepository;
+    private MotorcycleRepository $repository;
+    private Client $client;
 
-    public function __construct(Motorcycle $motorcycle, Client $client, FilterSanitize $sanitize, MotorcycleRepository $motorcycleRepository)
+    public function __construct(Motorcycle $motorcycle, FilterSanitize $sanitize, MotorcycleRepository $repository, Client $client)
     {
         $this->motorcycle = $motorcycle;
-        $this->motorcycleRepository = $motorcycleRepository;
-        $this->client = $client;
+        $this->repository = $repository;
         $this->sanitize = $sanitize;
+        $this->client = $client;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $data = $request->getParsedBody();
+        $idMotorcycle = $data['idMotorcycle'];
+        $idClient = $data['idClient'];
+
+        if (isset($data['update'])) {
+            $redirectError = new Response(302, [
+                'Location' => "/client/motorcycle/update?motorcycle={$idMotorcycle}&client={$idClient}"
+            ]);
+        } else {
+            $redirectError = new Response(302, [
+                'Location' => "/client/motorcycle/add?id={$idClient}"
+            ]);
+        }
+
         try {
-            $data = $request->getParsedBody();
+            $licensePlate = $this->sanitize
+                ->string($data['license'], 'Emplacamento invalido');
 
-            // License Plate
-            $licensePlate = $this->sanitize->string($data['licensePlate'], 'Emplacamento invalido');
-            $this->motorcycle->setLicensePlate(strtoupper($licensePlate));
+            $brand = $this->sanitize
+                ->string($data['brand'], 'Marca da moto invalida');
 
-            // Brand motorcycle
-            $brand = $this->sanitize->string($data['brandMotorcycle'], 'Marca da moto invalida');
-            $this->motorcycle->setBrand($brand);
+            $model = $this->sanitize
+                ->string($data['model'], 'Modelo da moto invalido');
 
-            // Model motorcycle
-            $model = $this->sanitize->string($data['modelMotorcycle'], 'Modelo da moto invalido');
-            $this->motorcycle->setModel($model);
+            $engine = $this->sanitize
+                ->int($data['engine'], 'Cilindrada invalida');
 
-            // Engine Capacity
-            $engine = $this->sanitize->int($data['engineMotorcycle'], 'Cilindrada invalida');
-            $this->motorcycle->setEngine($engine);
+            $manufactureYear = $this->sanitize
+                ->int($data['yearManufacture'], 'Ano de fabricação invalido');
 
-            // Kilometer
-            $km = filter_var($data['kmMotorcycle'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-            $this->motorcycle->setKmMotorcycle($km);
+            $modelYear = $this->sanitize
+                ->int($data['yearModel'], 'Ano de modelo invalido');
 
-            // Manufacture Year
-            $manufactureYear = $this->sanitize->int($data['yearMotorcycle'], 'Ano de fabricação invalido');
-            $this->motorcycle->setManufactureYear($manufactureYear);
+            $idClient = $this->sanitize
+                ->int($data['idClient'], 'ID Cliente Invalido');
 
-            // Model Year
-            $modelYear = $this->sanitize->int($data['yearMotorcycle'], 'Ano de modelo invalido');
-            $this->motorcycle->setModelYear($modelYear);
+            $this->motorcycle
+                ->setLicensePlate($licensePlate)
+                ->setBrand($brand)
+                ->setModel($model)
+                ->setEngine($engine)
+                ->setYearManufacture($manufactureYear)
+                ->setYearModel($modelYear);
 
-            // ID Client
-            $idClient = $this->sanitize->int($data['idClient'], 'ID Cliente Invalido');
-            $this->client->setId($idClient);
+            if (isset($data['update'])) {
+                $idMotorcycle = $this->sanitize
+                    ->int($data['idMotorcycle'], 'ID Invalido');
 
-            // ID Motorcycle
-            if ($data['idMotorcycle'] !== NULL && $data['idMotorcycle'] !== '') {
-                $idMotorcycle = $this->sanitize->int($data['idMotorcycle'], 'ID Invalido');
-                $this->motorcycle->setIdMotorcycle($idMotorcycle);
+                $this->motorcycle->setId($idMotorcycle);
+
+                $this->repository->update($this->motorcycle);
+
+                $this->alertMessage('success', 'Dados da motocicleta atualizado com sucesso');
+                return new Response(200, ['Location' => "/client/motorcycle?id={$idClient}"]);
             }
+            $client = $this->client
+                ->setId($idClient);
 
-            if (array_key_exists('update', $data)) {
-                $this->motorcycleRepository->updateMotorcycle($this->motorcycle);
-                $this->alertMessage('success', 'Motocicleta atualizada com sucesso');
-            } elseif (array_key_exists('save', $data)) {
-                $this->motorcycleRepository->createMotorcycle($this->motorcycle, $this->client);
-                $this->alertMessage('success', 'Motocicleta adicionada com sucesso');
-            } else {
-                throw new Exception('Houston, we have a problem');
-            }
+            $this->motorcycle
+                ->setClient($client);
 
-            return new Response(200, ['Location' => "/motorcycle-client?id=$idClient"]);
+            $this->repository->save($this->motorcycle);
+            $this->alertMessage('success', 'Motocicleta adicionada com sucesso');
+
+            return new Response(200, ['Location' => "/client/motorcycle?id={$idClient}"]);
         } catch (Exception $error) {
-            echo 'Error: ' . $this->alertMessage('danger', $error->getMessage());
-            return new Response(302, ['Location' => $data['url']]);
+            $this->alertMessage('danger', $error->getMessage());
+            return $redirectError;
         }
     }
 }

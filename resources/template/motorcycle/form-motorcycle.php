@@ -1,85 +1,65 @@
-<?php
-require_once __DIR__ . '/../../includes/header.php';
-require __DIR__ . '/../../includes/navbar.php';
-$currentUrl = $_SERVER['REQUEST_URI'];
+<?php require_once __DIR__ . '/../../includes/header.php';
 
-/** @var \App\View\Motorcycle\FormUpdateMotorcycle | \App\View\Motorcycle\FormCreateMotorcycle $attributeButton */
-/** @var \App\View\Motorcycle\FormUpdateMotorcycle | \App\View\Motorcycle\FormCreateMotorcycle $button */
+/**
+ * @var \App\Entity\Motorcycle\Motorcycle $motorcycle
+ * @var \App\View\Motorcycle\FormCreateMotorcycle | \App\View\Motorcycle\FormUpdateMotorcycle $button
+ * @var \App\View\Motorcycle\FormCreateMotorcycle | \App\View\Motorcycle\FormUpdateMotorcycle $idClient
+ */
 
 ?>
 
-    <div class="border m-3 p-5 bg-light form-content">
-        <h4 class="text-center m-4"> Dados da Motocicleta </h4>
+    <h4 class="text-center m-4">Dados da Motocicleta</h4>
 
-        <?php require_once __DIR__ . '/../../includes/alert-message.php'; ?>
+<?php require_once __DIR__ . '/../../includes/alert-message.php'; ?>
 
-        <form method="POST" action="/save-motorcycle">
-            <div class="form-row">
-                <!-- License Plate -->
-                <div class="form-group col-md-2">
-                    <label for="licensePlate">Placa<span class="span-required">*</span> </label>
-                    <input type="text" class="form-control" id="licensePlate" name="licensePlate"
-                           placeholder="XXX-1234" value="<?= $motorcycle['license_plate'] ?? ''; ?>">
-                </div>
-                <!-- Motorcycle Brand -->
-                <div class="form-group col-md-3">
-                    <label for="brandMotorcycle"> Marca <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" name="brandMotorcycle" id="brandMotorcycle"
-                           placeholder="Exemplo: Kawasaki" value="<?= $motorcycle['brand'] ?? ''; ?>">
-                </div>
-                <!-- Model -->
-                <div class="form-group col-md-3">
-                    <label for="modelMotorcycle"> Modelo <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="modelMotorcycle" name="modelMotorcycle"
-                           placeholder="Exemplo: CBR 600." value="<?= $motorcycle['model'] ?? ''; ?>">
-                </div>
-                <!-- Engine -->
-                <div class="form-group col-md-2">
-                    <label for="engineMotorcycle"> Cilindrada <span class="span-required">*</span> </label>
-                    <input type="text" class="form-control" id="engineMotorcycle" name="engineMotorcycle"
-                           placeholder="Exemplo: 650CC." maxlength="4"
-                           value="<?= $motorcycle['engine_capacity'] ?? ''; ?>">
-                </div>
-                <!-- KM Motorcycle -->
-                <div class="form-group col-md-2">
-                    <label for="kmMotorcycle"> Quilometro <span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="kmMotorcycle" placeholder="Exemplo: 65.000 KM"
-                           name="kmMotorcycle" value="<?= $motorcycle['kilometer'] ?? ''; ?>">
-                </div>
+    <form method="POST" action="/save-motorcycle">
+        <div class="form-row">
+            <!-- License Plate -->
+            <div class="form-group col-md-2">
+                <label for="license">Placa<span class="span-required">*</span> </label>
+                <input type="text" class="form-control" id="license" name="license" placeholder="ABC-1234" maxlength="8"
+                       value="<?= isset($motorcycle) ? $motorcycle->getLicensePlate() : ''; ?>">
             </div>
-
-            <!-- Year Motorcycle -->
-            <div class="form-row d-flex justify-content-center ">
-                <!-- Manufacture year -->
-                <div class="form-group col-md-3">
-                    <label for="yearRegister">Ano Fabricação<span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="yearRegister" name="yearMotorcycle"
-                           placeholder="Ano de Fabricação" maxlength="4"
-                           value="<?= $motorcycle['manufacture_year'] ?? ''; ?>">
-                </div>
-                <!-- Model year -->
-                <div class="form-group col-md-3">
-                    <label for="yearRegister">Ano do Modelo<span class="span-required">*</span></label>
-                    <input type="text" class="form-control" id="yearRegister" name="yearMotorcycle"
-                           placeholder="Ano do modelo" maxlength="4" value="<?= $motorcycle['model_year'] ?? ''; ?>">
-                </div>
+            <!-- Motorcycle Brand -->
+            <div class="form-group col-md-4">
+                <label for="brand">Marca<span class="span-required">*</span></label>
+                <input type="text" class="form-control" name="brand" id="brand" placeholder="Exemplo: Kawasaki"
+                       value="<?= isset($motorcycle) ? $motorcycle->getBrand() : ''; ?>">
             </div>
+            <!-- Model -->
+            <div class="form-group col-md-4">
+                <label for="model">Modelo<span class="span-required">*</span></label>
+                <input type="text" class="form-control" id="model" name="model" placeholder="Exemplo: CBR 600."
+                       value="<?= isset($motorcycle) ? $motorcycle->getModel() : ''; ?>">
+            </div>
+            <!-- Engine -->
+            <div class="form-group col-md-2">
+                <label for="engine">Cilindrada<span class="span-required">*</span> </label>
+                <input type="text" class="form-control" id="engine" name="engine" placeholder="Exemplo: 650CC."
+                       maxlength="4" value="<?= isset($motorcycle) ? $motorcycle->getEngine() : ''; ?>">
+            </div>
+        </div>
 
-            <input type="hidden" name="idClient" value="<?= $_GET['id']; ?>">
-            <input type="hidden" name="idMotorcycle" value="<?= $_GET['motorcycle'] ?? ''; ?>">
-            <input type="hidden" name="url" value="<?= $currentUrl; ?>">
+        <!-- Year Motorcycle -->
+        <div class="form-row d-flex justify-content-center ">
+            <div class="form-group col-md-2">
+                <label for="yearManufacture">Ano Fabricação<span class="span-required">*</span></label>
+                <input type="text" class="form-control" id="yearManufacture" name="yearManufacture"
+                       placeholder="Ano de Fabricação" maxlength="4"
+                       value="<?= isset($motorcycle) ? $motorcycle->getYearManufacture() : ''; ?>">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="yearModel">Ano do Modelo<span class="span-required">*</span></label>
+                <input type="text" class="form-control" id="yearModel" name="yearModel" placeholder="Ano do modelo"
+                       maxlength="4" value="<?= isset($motorcycle) ? $motorcycle->getYearModel() : ''; ?>">
+            </div>
+        </div>
 
-            <!-- Button -->
-            <button type="submit" class="btn btn-default w-100" name="<?= $attributeButton; ?>">
-                <?= $button; ?>
-            </button>
+        <input type="hidden" name="idClient" value="<?= $idClient; ?>">
+        <input type="hidden" name="idMotorcycle" value="<?= isset($idMotorcycle) ? $idMotorcycle : ''; ?>">
 
-        </form>
-    </div>
+        <button type="submit" class="btn btn-default w-100" name="<?= $button; ?>">Save</button>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <script><?php require_once __DIR__ . '/../../../public/assets/js/cep&CpfVerify.js'; ?></script>
-    <script><?php require_once __DIR__ . '/../../../public/assets/js/inputPhoneModel.js'; ?></script>
+    </form>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
