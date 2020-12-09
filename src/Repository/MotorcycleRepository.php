@@ -44,6 +44,16 @@ class MotorcycleRepository implements MotorcycleRepositoryInterface
         return $this->hydrateFetchAll($fetch);
     }
 
+    public function findAll(): array
+    {
+        $sql = "SELECT * FROM motorcycle";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+        $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this->hydrateFetchAll($fetch);
+    }
+
     public function save(Motorcycle $motorcycle): void
     {
         $sql = "INSERT INTO motorcycle 

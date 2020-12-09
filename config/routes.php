@@ -3,6 +3,7 @@
 use App\Controller\Client\ControllerClient;
 use App\Controller\ControllerLogin;
 use App\Controller\Logout;
+use App\Controller\Motorcycle\ControllerMotorcycle;
 use App\Controller\Motorcycle\RemoveMotorcycle;
 use App\View\Client\ClientPage;
 use App\View\Client\FormCreateClient;
@@ -13,6 +14,7 @@ use App\View\Login;
 use App\View\Motorcycle\ClientMotorcycle;
 use App\View\Motorcycle\FormCreateMotorcycle;
 use App\View\Motorcycle\FormUpdateMotorcycle;
+use App\View\Motorcycle\TableMotorcycles;
 
 
 return [
@@ -22,7 +24,7 @@ return [
     '/make-login'   => ControllerLogin::class,
     '/logout'       => Logout::class,
 
-    // Templates Section
+    // Dashboard
     '/dashboard'    => Dashboard::class,
 
     // Client section
@@ -33,10 +35,11 @@ return [
     '/save-client'      => ControllerClient::class,
 
     // Motorcycle section
+    '/motorcycles'              => TableMotorcycles::class,
     '/client/motorcycle'        => ClientMotorcycle::class,
     '/client/motorcycle/add'    => FormCreateMotorcycle::class,
     '/client/motorcycle/update' => FormUpdateMotorcycle::class,
-    '/save-motorcycle'          => \App\Controller\Motorcycle\ControllerMotorcycle::class,
+    '/save-motorcycle'          => ControllerMotorcycle::class,
     '/remove-motorcycle'        => RemoveMotorcycle::class,
 
     // Order of service section

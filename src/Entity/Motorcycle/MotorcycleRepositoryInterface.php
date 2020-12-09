@@ -21,6 +21,11 @@ interface MotorcycleRepositoryInterface
     public function findAllByClient(Motorcycle $motorcycle): array;
 
     /**
+     * @return array
+     */
+    public function findAll(): array;
+
+    /**
      * @param Motorcycle $motorcycle
      * @param Client $client
      */

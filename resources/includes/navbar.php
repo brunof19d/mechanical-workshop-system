@@ -31,7 +31,7 @@
 
             <!-- Motorcycle -->
             <li class="nav-item">
-                <a class="nav-link" href="#">Motos</a>
+                <a class="nav-link" href="/motorcycles">Motos</a>
             </li>
 
         </ul>
