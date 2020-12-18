@@ -15,6 +15,9 @@ use App\View\Motorcycle\ClientMotorcycle;
 use App\View\Motorcycle\FormCreateMotorcycle;
 use App\View\Motorcycle\FormUpdateMotorcycle;
 use App\View\Motorcycle\TableMotorcycles;
+use App\View\Products\FormCategory;
+use App\View\Products\FormProduct;
+use App\View\Products\TableProducts;
 
 
 return [
@@ -59,13 +62,17 @@ return [
     '/remove-external'      => \App\Controller\OrderService\RemoveProductsExternal::class,
 
     // Products section
-    '/add-product'      => \App\View\Products\AddProduct::class,
+    '/products'                 => TableProducts::class,
+    '/products/add'             => FormProduct::class,
+    '/products/category/add'    => FormCategory::class,
+
     '/save-product'     => \App\Controller\Product\ControllerProduct::class,
     '/remove-product'   => \App\Controller\Product\RemoveProduct::class,
-    '/table-products'   => \App\View\Products\TableProducts::class,
+
     '/table-filter'     => \App\View\Products\TableFilterCategory::class,
 
-    '/add-category'     => \App\View\Products\AddCategory::class,
+
+
     '/table-category'   => \App\View\Products\TableCategory::class,
     '/save-category'    => \App\Controller\Product\ControllerCategory::class,
     '/remove-category'  => \App\Controller\Product\RemoveCategory::class

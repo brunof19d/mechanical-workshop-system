@@ -1,26 +1,30 @@
-<?php
+<?php require_once __DIR__ . '/../../includes/header.php';
 
-require_once __DIR__ . '/../../includes/header.php';
-require __DIR__ . '/../../includes/navbar.php';
-require_once __DIR__ . '/../../includes/alert-message.php';
-
-/** @var \App\View\Products\TableProducts $allCategories */
-/** @var \App\View\Products\TableProducts $allProducts */
+/**
+ * @var \App\View\Products\TableProducts $categories
+ * @var \App\Entity\Product\CategoryProduct $category
+ * @var \App\View\Products\TableProducts $products
+ * @var \App\Entity\Product\Product $product
+ */
 
 ?>
 
 <h4 class="text-center mb-5">Tabela com todos os produtos registrado do sistema</h4>
 
 <form method="GET" action="/table-filter">
+
     <div class="d-flex align-items-center">
-        <label for="inputCategory">Filtar por categorias:</label>
-        <select class="form-control w-50 mr-3 ml-2" id="inputCategory" name="category">
+        <label for="category">Filtar por categorias:</label>
+        <select class="form-control w-50 mr-3 ml-2" id="category" name="category">
             <option selected disabled>Escolha uma categoria...</option>
-            <?php foreach ($allCategories as $category): ?>
-                <option value="<?= $category['id_category']; ?>"><?= $category['name_category']; ?></option>
+            <?php foreach ($categories as $category): ?>
+                <option value="<?= $category->getIdCategory(); ?>">
+                    <?= $category->getNameCategory(); ?>
+                </option>
             <?php endforeach; ?>
         </select>
-        <button class="btn btn-sm btn-success">Aplicar filtro</button>
+
+        <button class="btn btn-default " type="submit">Aplicar filtro</button>
     </div>
 
 </form>
@@ -32,23 +36,20 @@ require_once __DIR__ . '/../../includes/alert-message.php';
 <table class="table table-bordered table-striped table-responsive-xl border w-100">
     <thead>
     <tr>
-        <th>Referência</th>
-        <th>Descrição Produto</th>
+        <th>Nome Produto</th>
         <th>Categoria</th>
         <th>Preço unitario</th>
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($allProducts as $product): ?>
+    <?php foreach ($products as $product): ?>
         <tr class="client">
-            <td><?= $product['id_product']; ?></td>
-            <td class="info-name"><?= $product['description']; ?></td>
-            <td><?= $product['name_category']; ?></td>
-            <td><b class="mr-1">R$</b><?= $product['value']; ?></td>
+            <td><?= $product->getNameProduct(); ?></td>
+            <td><?= $product->getCategory()->getNameCategory(); ?></td>
+            <td><b class="mr-1">R$</b><?= $product->getValue(); ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
 </table>
 
-<script><?php require_once __DIR__ . '/../../../public/assets/js/filterProductTable.js'; ?></script>
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

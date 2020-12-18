@@ -1,8 +1,10 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\Entity\Product;
-
 
 class CategoryProduct
 {
@@ -14,9 +16,10 @@ class CategoryProduct
         return $this->idCategory;
     }
 
-    public function setIdCategory(int $idCategory): void
+    public function setIdCategory(int $idCategory): CategoryProduct
     {
         $this->idCategory = $idCategory;
+        return $this;
     }
 
     public function getNameCategory(): string
@@ -24,8 +27,9 @@ class CategoryProduct
         return $this->nameCategory;
     }
 
-    public function setNameCategory(string $nameCategory): void
+    public function setNameCategory(string $nameCategory): CategoryProduct
     {
         $this->nameCategory = $nameCategory;
+        return $this;
     }
 }

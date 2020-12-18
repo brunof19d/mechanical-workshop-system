@@ -34,6 +34,16 @@
                 <a class="nav-link" href="/motorcycles">Motos</a>
             </li>
 
+            <!-- Products -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="budget" aria-haspopup="true" aria-expanded="false">Produtos</a>
+                <div class="dropdown-menu" aria-labelledby="budget">
+                    <a class="dropdown-item" href="/products">Ver todos Produtos</a>
+                    <a class="dropdown-item" href="/products/add">Adicionar produtos</a>
+                    <a class="dropdown-item" href="/products/category/add">Adicionar categoria</a>
+                </div>
+            </li>
+
         </ul>
     </div>
 

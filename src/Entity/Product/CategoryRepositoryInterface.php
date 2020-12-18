@@ -8,7 +8,7 @@ interface CategoryRepositoryInterface
 {
     public function bringOnlyCategory(CategoryProduct $category): array;
 
-    public function bringAllCategories(): array;
+    public function findAllCategories(): array;
 
     public function createCategory(CategoryProduct $category): void;
 

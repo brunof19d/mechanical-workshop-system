@@ -1,16 +1,19 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\View\Products;
-
 
 use App\Helper\RenderHtml;
 use App\Repository\ProductRepository;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class AddProduct
+class FormProduct implements RequestHandlerInterface
 {
     use RenderHtml;
 
@@ -23,10 +26,14 @@ class AddProduct
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $template = $this->render('products/add-product.php', [
-            'title'         => 'Adicionar um produto',
-            'allCategories' => $this->repository->bringAllCategories()
+        $categories = $this->repository
+            ->findAllCategories();
+
+        $template = $this->render('products/form-product.php', [
+            'title' => 'Adicionar um produto',
+            'categories' => $categories
         ]);
+
         return new Response(200, [], $template);
     }
 }

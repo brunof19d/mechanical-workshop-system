@@ -1,35 +1,49 @@
 <?php
 
+/**
+ * @author Bruno Dadario <brunof19d@gmail.com>
+ */
 
 namespace App\Entity\Product;
 
-
 class Product
 {
-    private int $idProduct;
-    private string $description;
+    private int $id;
+    private string $nameProduct;
+    private CategoryProduct $category;
     private string $value;
-    private int $amount;
-    private string $valueTotal;
 
-    public function getIdProduct(): int
+    public function getId(): int
     {
-        return $this->idProduct;
+        return $this->id;
     }
 
-    public function setIdProduct(int $idProduct): void
+    public function setId(int $id): Product
     {
-        $this->idProduct = $idProduct;
+        $this->id = $id;
+        return $this;
     }
 
-    public function getDescription(): string
+    public function getNameProduct(): string
     {
-        return $this->description;
+        return $this->nameProduct;
     }
 
-    public function setDescription(string $description): void
+    public function setNameProduct(string $nameProduct): Product
     {
-        $this->description = $description;
+        $this->nameProduct = $nameProduct;
+        return $this;
+    }
+
+    public function getCategory(): CategoryProduct
+    {
+        return $this->category;
+    }
+
+    public function setCategory(CategoryProduct $category): Product
+    {
+        $this->category = $category;
+        return $this;
     }
 
     public function getValue(): string
@@ -37,29 +51,9 @@ class Product
         return $this->value;
     }
 
-    public function setValue(string $value): void
+    public function setValue(string $value): Product
     {
         $this->value = $value;
-    }
-
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(int $amount): void
-    {
-        $this->amount = $amount;
-    }
-
-    public function getValueTotal(): string
-    {
-        return $this->valueTotal;
-    }
-
-    public function setValueTotal(int $amount, string $value ): void
-    {
-        $valueTotal = ( $amount * $value );
-        $this->valueTotal = $valueTotal;
+        return $this;
     }
 }
